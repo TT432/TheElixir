@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 public class TheElixir {
     public static final String MOD_ID = "the_elixir";
 
+    public static final int THE_ULTIMATE_ANSWER_TO_THE_UNIVERSE = 42;
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     public TheElixir() {

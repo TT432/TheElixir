@@ -12,6 +12,7 @@ import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreCriteria;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ChatType;
@@ -22,6 +23,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.teacon.theelixir.capability.CapabilityRegistryHandler;
 import org.teacon.theelixir.capability.TheElixirCapability;
+import org.teacon.theelixir.item.Restrainer;
 
 /**
  * @author DustW
@@ -29,11 +31,19 @@ import org.teacon.theelixir.capability.TheElixirCapability;
 @Mod.EventBusSubscriber
 public class PlayerDeathEvent {
     @SubscribeEvent
-    public static void LifeUsed(LivingDeathEvent event) {
+    public static void onPlayerDeath(LivingDeathEvent event) {
         LivingEntity livingEntity = event.getEntityLiving();
 
         if (livingEntity instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) livingEntity;
+
+            if (event.getSource().getTrueSource() instanceof ServerPlayerEntity) {
+                ServerPlayerEntity attacker = (ServerPlayerEntity) event.getSource().getTrueSource();
+
+                if (attacker.getHeldItem(Hand.MAIN_HAND).getItem() instanceof Restrainer) {
+                    return;
+                }
+            }
 
             TheElixirCapability capability = serverPlayerEntity.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
 
