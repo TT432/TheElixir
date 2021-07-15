@@ -1,4 +1,10 @@
 {
   "item.the_elixir.elixir_item" : "蓬莱之药",
-  "item.the_elixir.restrainer" : "约束者"
+  "item.the_elixir.restrainer" : "约束者",
+  "item.the_elixir.flower_item" : "土球勋章",
+  "item.the_elixir.sunro_vientiane_paraquat.effect.empty" : "森罗百草枯 (小孩子不要喝)",
+  "item.the_elixir.test_item" : "测试物品",
+  "item.the_elixir.refreshment_grenade" : "茶点手雷",
+  "item.the_elixir.sign_in_card" : "签到卡",
+  "item.the_elixir.bob_boots": "鲍勃叔叔的靴子"
 }

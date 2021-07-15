@@ -2,12 +2,13 @@ package org.teacon.theelixir.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -22,7 +23,7 @@ import java.util.Set;
  */
 public class SunroVientianeParaquatItem extends PotionItem {
     public SunroVientianeParaquatItem() {
-        super(new Properties());
+        super(new Properties().group(ModItemGroup.INSTANCE));
         setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "sunro_vientiane_paraquat"));
     }
 
@@ -37,5 +38,12 @@ public class SunroVientianeParaquatItem extends PotionItem {
 
         PotionUtils.appendEffects(stack, effects);
         return super.onLeftClickEntity(stack, player, entity);
+    }
+
+    @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        if (this.isInGroup(group)) {
+            items.add(new ItemStack(this));
+        }
     }
 }

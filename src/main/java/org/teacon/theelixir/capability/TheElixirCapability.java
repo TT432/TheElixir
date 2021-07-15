@@ -1,13 +1,12 @@
 package org.teacon.theelixir.capability;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import org.teacon.theelixir.network.ModNetworkManager;
+import org.teacon.theelixir.network.server.FlowerSyncServer;
 
 /**
  * @author DustW
@@ -21,6 +20,8 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     private ServerWorld lastWorld;
 
     public int difficultyPoint;
+
+    private boolean hasFlower;
 
     public void init(ServerPlayerEntity owner) {
         this.owner = owner;
@@ -46,6 +47,21 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
 
     public void setUsedElixir(boolean usedElixir) {
         this.usedElixir = usedElixir;
+    }
+
+    public boolean isHasFlower() {
+        return hasFlower;
+    }
+
+    public void setHasFlower(boolean hasFlower) {
+        this.hasFlower = hasFlower;
+
+        String threadGroupName = Thread.currentThread().getThreadGroup().getName();
+        if ("SERVER".equals(threadGroupName)) {
+            owner.world.getPlayers().forEach(player -> {
+                ModNetworkManager.serverSendToPlayer(new FlowerSyncServer(owner.getUniqueID(), hasFlower), (ServerPlayerEntity) player);
+            });
+        }
     }
 
     public void tick() {

@@ -1,27 +1,20 @@
 package org.teacon.theelixir.item;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import org.teacon.theelixir.TheElixir;
 import org.teacon.theelixir.capability.CapabilityRegistryHandler;
 
 /**
  * @author DustW
  */
-public class ElixirItem extends Item {
+public class ElixirItem extends ModItemBase {
     public ElixirItem() {
-        super(new Properties().maxStackSize(1).group(ItemGroup.FOOD));
-
-        this.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "elixir_item"));
+        super("elixir_item", 1);
     }
 
     @Override

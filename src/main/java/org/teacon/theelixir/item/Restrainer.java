@@ -1,7 +1,6 @@
 package org.teacon.theelixir.item;
 
 import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.crafting.Ingredient;
@@ -43,7 +42,7 @@ public class Restrainer extends SwordItem {
             public Ingredient getRepairMaterial() {
                 return Ingredient.fromItems(Items.PUMPKIN);
             }
-        }, 0, TheElixir.THE_ULTIMATE_ANSWER_TO_THE_UNIVERSE, new Properties().group(ItemGroup.COMBAT));
+        }, 0, TheElixir.THE_ULTIMATE_ANSWER_TO_THE_UNIVERSE, new Properties().group(ModItemGroup.INSTANCE));
 
         setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "restrainer"));
     }

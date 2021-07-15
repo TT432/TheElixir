@@ -10,7 +10,6 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import org.teacon.theelixir.TheElixir;
-import org.teacon.theelixir.capability.CapabilityRegistryHandler;
 
 /**
  * @author DustW

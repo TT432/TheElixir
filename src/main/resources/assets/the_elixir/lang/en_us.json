@@ -1,4 +1,10 @@
 {
   "item.the_elixir.elixir_item" : "Elixir",
-  "item.the_elixir.restrainer" : "Restrainer"
+  "item.the_elixir.restrainer" : "Restrainer",
+  "item.the_elixir.flower_item" : "ZZZZ Medal",
+  "item.the_elixir.sunro_vientiane_paraquat.effect.empty" : "Sunro Vientiane Paraquat",
+  "item.the_elixir.test_item" : "Test Item",
+  "item.the_elixir.refreshment_grenade" : "Refreshment Grenade",
+  "item.the_elixir.sign_in_card" : "Sign-in Card",
+  "item.the_elixir.bob_boots" : "Uncle Bob's Boots"
 }
