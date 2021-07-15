@@ -17,7 +17,7 @@ import org.teacon.theelixir.particle.ParticleRegistryHandler;
 /**
  * @author DustW
  */
-public class GrenadeEntity extends ProjectileItemEntity implements IRendersAsItem {
+public class GrenadeEntity extends ProjectileItemEntity {
     public GrenadeEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
     }

@@ -8,6 +8,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.teacon.theelixir.TheElixir;
 import org.teacon.theelixir.network.client.IClientMessage;
 import org.teacon.theelixir.network.server.FlowerSyncServer;
+import org.teacon.theelixir.network.server.FoxTailSyncServer;
 import org.teacon.theelixir.network.server.IServerMessage;
 
 /**
@@ -43,5 +44,11 @@ public class ModNetworkManager {
                 FlowerSyncServer::encode,
                 FlowerSyncServer::decode,
                 FlowerSyncServer::handle);
+
+        INSTANCE.registerMessage(id++,
+                FoxTailSyncServer.class,
+                FoxTailSyncServer::encode,
+                FoxTailSyncServer::decode,
+                FoxTailSyncServer::handle);
     }
 }

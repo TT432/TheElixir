@@ -3,10 +3,21 @@ package org.teacon.theelixir.event.listener;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeBuffers;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.FoxRenderer;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.entity.model.FoxModel;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -20,9 +31,16 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.omg.PortableInterceptor.ObjectReferenceFactoryHelper;
 import org.teacon.theelixir.TheElixir;
 import org.teacon.theelixir.capability.CapabilityRegistryHandler;
+import org.teacon.theelixir.event.RendererModelEvent;
 import org.teacon.theelixir.model.ZZZZFlower;
+
+import java.lang.reflect.Field;
+import java.util.Random;
+import java.util.UUID;
+import java.util.function.Function;
 
 /**
  * @author DustW
@@ -32,10 +50,46 @@ public class ListenerPlayerRender {
     public static final ResourceLocation ZZZZ_FLOWER_TEXTURE = new ResourceLocation(TheElixir.MOD_ID, "textures/entity/zzzzflower.png");
     public static final ZZZZFlower ZZZZ_FLOWER = new ZZZZFlower();
 
+    public static ModelRenderer TAIL;
+    static boolean beGet;
+
+    public static ModelRenderer getTail() {
+        if (!beGet) {
+            try {
+                Field tail = FoxModel.class.getDeclaredField("tail");
+                tail.setAccessible(true);
+                TAIL = (ModelRenderer) tail.get(new FoxModel<>());
+                beGet = true;
+            } catch (IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return TAIL;
+    }
+
+    static boolean beAdd;
+
+    static UUID renderingPlayer;
+
     @SubscribeEvent
-    public static void onPlayerRender(RenderPlayerEvent event) {
+    public static void onPlayerRender(RenderPlayerEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
         PlayerEntity player = event.getPlayer();
+
+        renderingPlayer = player.getUniqueID();
+
+        MatrixStack matrixStack = event.getMatrixStack();
+
+        PlayerModel<AbstractClientPlayerEntity> playerModel = event.getRenderer().getEntityModel();
+        ModelRenderer bodyModel = playerModel.bipedBody;
+
+        if (!beAdd && player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFoxTail()) {
+            if (getTail() != null) {
+                bodyModel.addChild(getTail());
+                beAdd = true;
+            }
+        }
 
         if (player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFlower()) {
             World world = mc.world;
@@ -43,8 +97,6 @@ public class ListenerPlayerRender {
             RenderTypeBuffers renderBuffers = mc.getRenderTypeBuffers();
             RenderType renderType = ZZZZ_FLOWER.getRenderType(ZZZZ_FLOWER_TEXTURE);
             IVertexBuilder vertexBuilder = renderBuffers.getBufferSource().getBuffer(renderType);
-
-            MatrixStack matrixStack = event.getMatrixStack();
 
             int overlay = OverlayTexture.getPackedUV(OverlayTexture.getU(0), OverlayTexture.getV(false));
             int light = LightTexture.packLight(world.getLightFor(LightType.SKY, new BlockPos(pos)), world.getLightFor(LightType.BLOCK, new BlockPos(pos)));
@@ -69,5 +121,36 @@ public class ListenerPlayerRender {
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         tick++;
+    }
+
+    @SubscribeEvent
+    public static void onModelRender(RendererModelEvent.Pre event) {
+        if (event.getModelRenderer() == getTail()) {
+            Minecraft mc = Minecraft.getInstance();
+            FoxRenderer foxRender = new FoxRenderer(mc.getRenderManager());
+            FoxEntity foxEntity = new FoxEntity(EntityType.FOX, mc.world);
+            RenderType type = new FoxModel<>().getRenderType(foxRender.getEntityTexture(foxEntity));
+            IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
+            event.setBufferIn(buffer);
+
+            event.getMatrixStackIn().push();
+
+            event.getMatrixStackIn().translate(0, -3 / 16F, -8 / 16F);
+            event.getMatrixStackIn().rotate(Vector3f.XP.rotationDegrees(30));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onModelRenderPost(RendererModelEvent.Post event) {
+        if (event.getModelRenderer() == getTail()) {
+            Minecraft mc = Minecraft.getInstance();
+            PlayerEntity player = mc.world.getPlayerByUuid(renderingPlayer);
+            EntityRenderer<? super PlayerEntity> playerRenderer = mc.getRenderManager().getRenderer(player);
+            RenderType type = new PlayerModel<PlayerEntity>(0, false).getRenderType(playerRenderer.getEntityTexture(player));
+            IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
+            event.setBufferIn(buffer);
+
+            event.getMatrixStackIn().pop();
+        }
     }
 }

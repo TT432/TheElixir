@@ -23,6 +23,7 @@ public class RegistryHandler {
     public static final SignInCard SIGN_IN_CARD = new SignInCard();
     public static final RefreshmentGrenade SMELLY_GRENADE = new RefreshmentGrenade();
     public static final BobBoots BOB_BOOTS = new BobBoots();
+    public static final IAmFurryItem I_AM_FURRY_ITEM = new IAmFurryItem();
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
@@ -34,7 +35,8 @@ public class RegistryHandler {
                 FLOWER_ITEM,
                 SIGN_IN_CARD,
                 SMELLY_GRENADE,
-                BOB_BOOTS
+                BOB_BOOTS,
+                I_AM_FURRY_ITEM
         );
     }
 

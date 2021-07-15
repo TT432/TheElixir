@@ -7,6 +7,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.teacon.theelixir.network.ModNetworkManager;
 import org.teacon.theelixir.network.server.FlowerSyncServer;
+import org.teacon.theelixir.network.server.FoxTailSyncServer;
 
 /**
  * @author DustW
@@ -22,6 +23,8 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     public int difficultyPoint;
 
     private boolean hasFlower;
+
+    private boolean hasFoxTail;
 
     public void init(ServerPlayerEntity owner) {
         this.owner = owner;
@@ -51,6 +54,21 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
 
     public boolean isHasFlower() {
         return hasFlower;
+    }
+
+    public boolean isHasFoxTail() {
+        return hasFoxTail;
+    }
+
+    public void setHasFoxTail(boolean hasFoxTail) {
+        this.hasFoxTail = hasFoxTail;
+
+        String threadGroupName = Thread.currentThread().getThreadGroup().getName();
+        if ("SERVER".equals(threadGroupName)) {
+            owner.world.getPlayers().forEach(player -> {
+                ModNetworkManager.serverSendToPlayer(new FoxTailSyncServer(owner.getUniqueID(), hasFoxTail), (ServerPlayerEntity) player);
+            });
+        }
     }
 
     public void setHasFlower(boolean hasFlower) {
