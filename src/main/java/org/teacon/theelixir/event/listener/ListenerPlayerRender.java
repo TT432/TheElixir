@@ -34,6 +34,7 @@ import org.teacon.theelixir.capability.CapabilityRegistryHandler;
 import org.teacon.theelixir.event.RendererModelEvent;
 import org.teacon.theelixir.model.ZZZZFlower;
 
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 /**
@@ -44,52 +45,9 @@ public class ListenerPlayerRender {
     public static final ResourceLocation ZZZZ_FLOWER_TEXTURE = new ResourceLocation(TheElixir.MOD_ID, "textures/entity/zzzzflower.png");
     public static final ZZZZFlower ZZZZ_FLOWER = new ZZZZFlower();
 
-    public static ModelRenderer TAIL;
-    static boolean beGet;
-    static ModelRenderer LEFT_EAR;
-    static ModelRenderer RIGHT_EAR;
-    static boolean earBeGet;
-
-    public static ModelRenderer getTail() {
-        if (!beGet) {
-            TAIL = (new FoxModel<>()).tail;
-            beGet = true;
-        }
-        return TAIL;
-    }
-
-    public static ModelRenderer[] getEars() {
-        if (!earBeGet) {
-            Field leftEar = null;
-            Field rightEar = null;
-
-            try {
-                try {
-                    leftEar = FoxModel.class.getDeclaredField("leftEar");
-                    rightEar = FoxModel.class.getDeclaredField("rightEar");
-                } catch (NoSuchFieldException e) {
-                    try {
-                        leftEar = FoxModel.class.getDeclaredField("field_217117_f");
-                        rightEar = FoxModel.class.getDeclaredField("field_217116_b");
-                    } catch (NoSuchFieldException ignored) {
-                    }
-                }
-
-                if (leftEar != null && rightEar != null) {
-                    leftEar.setAccessible(true);
-                    rightEar.setAccessible(true);
-                    LEFT_EAR = (ModelRenderer) leftEar.get(new FoxModel<>());
-                    RIGHT_EAR = (ModelRenderer) rightEar.get(new FoxModel<>());
-                    earBeGet = true;
-                }
-            }
-            catch (IllegalAccessException ignored) {
-
-            }
-        }
-
-        return new ModelRenderer[] {LEFT_EAR, RIGHT_EAR};
-    }
+    public static ModelRenderer TAIL = new FoxModel<>().tail;
+    static ModelRenderer LEFT_EAR = new FoxModel<>().leftEar;
+    static ModelRenderer RIGHT_EAR = new FoxModel<>().rightEar;
 
     static boolean beAdd;
 
@@ -108,20 +66,16 @@ public class ListenerPlayerRender {
         ModelRenderer bodyModel = playerModel.bipedBody;
         ModelRenderer headModel = playerModel.bipedHead;
 
-        if (getTail() != null && getEars()[0] != null) {
-            boolean flag = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFoxTail();
-            getTail().showModel = flag;
-            getEars()[0].showModel = flag;
-            getEars()[1].showModel = flag;
-        }
+        boolean flag = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFoxTail();
+        TAIL.showModel = flag;
+        LEFT_EAR.showModel = flag;
+        RIGHT_EAR.showModel = flag;
 
         if (!beAdd) {
-            if (getTail() != null) {
-                bodyModel.addChild(getTail());
-                headModel.addChild(getEars()[0]);
-                headModel.addChild(getEars()[1]);
-                beAdd = true;
-            }
+            bodyModel.addChild(TAIL);
+            headModel.addChild(LEFT_EAR);
+            headModel.addChild(RIGHT_EAR);
+            beAdd = true;
         }
 
         if (player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFlower()) {
@@ -159,7 +113,7 @@ public class ListenerPlayerRender {
     @SubscribeEvent
     public static void onModelRender(RendererModelEvent.Pre event) {
         ModelRenderer mr = event.getModelRenderer();
-        if (mr == getTail() || mr == getEars()[0] || mr == getEars()[1]) {
+        if (mr == TAIL || mr == LEFT_EAR || mr == RIGHT_EAR) {
             Minecraft mc = Minecraft.getInstance();
             FoxRenderer foxRender = new FoxRenderer(mc.getRenderManager());
             FoxEntity foxEntity = new FoxEntity(EntityType.FOX, mc.world);
@@ -169,7 +123,7 @@ public class ListenerPlayerRender {
 
             event.getMatrixStackIn().push();
 
-            if (mr == getTail()) {
+            if (mr == TAIL) {
                 event.getMatrixStackIn().translate(0, 4 / 16F, -12.5 / 16F);
                 event.getMatrixStackIn().rotate(Vector3f.XP.rotationDegrees(60));
             }
@@ -182,7 +136,7 @@ public class ListenerPlayerRender {
     @SubscribeEvent
     public static void onModelRenderPost(RendererModelEvent.Post event) {
         ModelRenderer mr = event.getModelRenderer();
-        if (mr == getTail() || mr == getEars()[0] || mr == getEars()[1]) {
+        if (mr == TAIL || mr == LEFT_EAR || mr == RIGHT_EAR) {
             Minecraft mc = Minecraft.getInstance();
             PlayerEntity player = mc.world.getPlayerByUuid(renderingPlayer);
             EntityRenderer<? super PlayerEntity> playerRenderer = mc.getRenderManager().getRenderer(player);
