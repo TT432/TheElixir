@@ -31,6 +31,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.system.CallbackI;
 import org.omg.PortableInterceptor.ObjectReferenceFactoryHelper;
 import org.teacon.theelixir.TheElixir;
 import org.teacon.theelixir.capability.CapabilityRegistryHandler;
@@ -52,20 +53,69 @@ public class ListenerPlayerRender {
 
     public static ModelRenderer TAIL;
     static boolean beGet;
+    static ModelRenderer LEFT_EAR;
+    static ModelRenderer RIGHT_EAR;
+    static boolean earBeGet;
 
     public static ModelRenderer getTail() {
         if (!beGet) {
+            Field tail = null;
+
             try {
-                Field tail = FoxModel.class.getDeclaredField("tail");
-                tail.setAccessible(true);
-                TAIL = (ModelRenderer) tail.get(new FoxModel<>());
-                beGet = true;
-            } catch (IllegalAccessException | NoSuchFieldException e) {
-                e.printStackTrace();
+                try {
+                    tail = FoxModel.class.getDeclaredField("tail");
+                } catch (NoSuchFieldException e) {
+                    try {
+                        tail = FoxModel.class.getDeclaredField("field_217124_m");
+                    } catch (NoSuchFieldException ignored) {
+                    }
+                }
+
+                if (tail != null) {
+                    tail.setAccessible(true);
+                    TAIL = (ModelRenderer) tail.get(new FoxModel<>());
+                    beGet = true;
+                }
+            }
+            catch (IllegalAccessException ignored) {
+
             }
         }
 
         return TAIL;
+    }
+
+    public static ModelRenderer[] getEars() {
+        if (!earBeGet) {
+            Field leftEar = null;
+            Field rightEar = null;
+
+            try {
+                try {
+                    leftEar = FoxModel.class.getDeclaredField("leftEar");
+                    rightEar = FoxModel.class.getDeclaredField("rightEar");
+                } catch (NoSuchFieldException e) {
+                    try {
+                        leftEar = FoxModel.class.getDeclaredField("field_217117_f");
+                        rightEar = FoxModel.class.getDeclaredField("field_217116_b");
+                    } catch (NoSuchFieldException ignored) {
+                    }
+                }
+
+                if (leftEar != null && rightEar != null) {
+                    leftEar.setAccessible(true);
+                    rightEar.setAccessible(true);
+                    LEFT_EAR = (ModelRenderer) leftEar.get(new FoxModel<>());
+                    RIGHT_EAR = (ModelRenderer) rightEar.get(new FoxModel<>());
+                    earBeGet = true;
+                }
+            }
+            catch (IllegalAccessException ignored) {
+
+            }
+        }
+
+        return new ModelRenderer[] {LEFT_EAR, RIGHT_EAR};
     }
 
     static boolean beAdd;
@@ -83,10 +133,20 @@ public class ListenerPlayerRender {
 
         PlayerModel<AbstractClientPlayerEntity> playerModel = event.getRenderer().getEntityModel();
         ModelRenderer bodyModel = playerModel.bipedBody;
+        ModelRenderer headModel = playerModel.bipedHead;
 
-        if (!beAdd && player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFoxTail()) {
+        if (getTail() != null && getEars()[0] != null) {
+            boolean flag = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFoxTail();
+            getTail().showModel = flag;
+            getEars()[0].showModel = flag;
+            getEars()[1].showModel = flag;
+        }
+
+        if (!beAdd) {
             if (getTail() != null) {
                 bodyModel.addChild(getTail());
+                headModel.addChild(getEars()[0]);
+                headModel.addChild(getEars()[1]);
                 beAdd = true;
             }
         }
@@ -125,7 +185,8 @@ public class ListenerPlayerRender {
 
     @SubscribeEvent
     public static void onModelRender(RendererModelEvent.Pre event) {
-        if (event.getModelRenderer() == getTail()) {
+        ModelRenderer mr = event.getModelRenderer();
+        if (mr == getTail() || mr == getEars()[0] || mr == getEars()[1]) {
             Minecraft mc = Minecraft.getInstance();
             FoxRenderer foxRender = new FoxRenderer(mc.getRenderManager());
             FoxEntity foxEntity = new FoxEntity(EntityType.FOX, mc.world);
@@ -135,14 +196,20 @@ public class ListenerPlayerRender {
 
             event.getMatrixStackIn().push();
 
-            event.getMatrixStackIn().translate(0, -3 / 16F, -8 / 16F);
-            event.getMatrixStackIn().rotate(Vector3f.XP.rotationDegrees(30));
+            if (mr == getTail()) {
+                event.getMatrixStackIn().translate(0, 4 / 16F, -12.5 / 16F);
+                event.getMatrixStackIn().rotate(Vector3f.XP.rotationDegrees(60));
+            }
+            else {
+                event.getMatrixStackIn().translate(-1 / 16F, -6 / 16F, 1 / 16F);
+            }
         }
     }
 
     @SubscribeEvent
     public static void onModelRenderPost(RendererModelEvent.Post event) {
-        if (event.getModelRenderer() == getTail()) {
+        ModelRenderer mr = event.getModelRenderer();
+        if (mr == getTail() || mr == getEars()[0] || mr == getEars()[1]) {
             Minecraft mc = Minecraft.getInstance();
             PlayerEntity player = mc.world.getPlayerByUuid(renderingPlayer);
             EntityRenderer<? super PlayerEntity> playerRenderer = mc.getRenderManager().getRenderer(player);

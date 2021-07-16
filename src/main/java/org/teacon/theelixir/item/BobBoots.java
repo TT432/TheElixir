@@ -39,13 +39,14 @@ public class BobBoots extends ModItemBase {
             if (Direction.getFacingFromVector(playerLook.x, playerLook.y, playerLook.z) ==
                     Direction.getFacingFromVector(targetLook.x, targetLook.y, targetLook.z)) {
 
-                float playerPitch = player.getPitch(1);
+                float playerPitch = (float) Math.toRadians(player.getPitch(1));
                 double distance = player.getPositionVec().distanceTo(entity.getPositionVec());
                 double a = MathHelper.sin(playerPitch) / MathHelper.cos(playerPitch) * distance;
 
                 float targetHeight = entity.getHeight();
+                float height = player.getHeight() - player.getEyeHeight();
 
-                if (a > targetHeight / 32 * (12 - 3) || a < targetHeight / 32 * (12 + 3)) {
+                if (a - height > targetHeight * ((12 - 6) / 32F) && a - height < targetHeight * ((12 + 6) / 32F)) {
                     entity.attackEntityFrom(ModDamageSources.BOOTS_KICKS, 20);
                 }
             }
