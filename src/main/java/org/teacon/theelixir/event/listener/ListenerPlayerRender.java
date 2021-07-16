@@ -8,10 +8,7 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeBuffers;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.FoxRenderer;
-import net.minecraft.client.renderer.entity.PlayerRenderer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.FoxModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -31,17 +28,13 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.lwjgl.system.CallbackI;
 import org.omg.PortableInterceptor.ObjectReferenceFactoryHelper;
 import org.teacon.theelixir.TheElixir;
 import org.teacon.theelixir.capability.CapabilityRegistryHandler;
 import org.teacon.theelixir.event.RendererModelEvent;
 import org.teacon.theelixir.model.ZZZZFlower;
 
-import java.lang.reflect.Field;
-import java.util.Random;
 import java.util.UUID;
-import java.util.function.Function;
 
 /**
  * @author DustW
@@ -59,29 +52,9 @@ public class ListenerPlayerRender {
 
     public static ModelRenderer getTail() {
         if (!beGet) {
-            Field tail = null;
-
-            try {
-                try {
-                    tail = FoxModel.class.getDeclaredField("tail");
-                } catch (NoSuchFieldException e) {
-                    try {
-                        tail = FoxModel.class.getDeclaredField("field_217124_m");
-                    } catch (NoSuchFieldException ignored) {
-                    }
-                }
-
-                if (tail != null) {
-                    tail.setAccessible(true);
-                    TAIL = (ModelRenderer) tail.get(new FoxModel<>());
-                    beGet = true;
-                }
-            }
-            catch (IllegalAccessException ignored) {
-
-            }
+            TAIL = (new FoxModel<>()).tail;
+            beGet = true;
         }
-
         return TAIL;
     }
 
