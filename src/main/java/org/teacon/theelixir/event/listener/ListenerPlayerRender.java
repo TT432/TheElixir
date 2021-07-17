@@ -31,6 +31,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.omg.PortableInterceptor.ObjectReferenceFactoryHelper;
 import org.teacon.theelixir.TheElixir;
 import org.teacon.theelixir.capability.CapabilityRegistryHandler;
+import org.teacon.theelixir.capability.TheElixirCapability;
 import org.teacon.theelixir.event.RendererModelEvent;
 import org.teacon.theelixir.model.ZZZZFlower;
 
@@ -45,19 +46,11 @@ public class ListenerPlayerRender {
     public static final ResourceLocation ZZZZ_FLOWER_TEXTURE = new ResourceLocation(TheElixir.MOD_ID, "textures/entity/zzzzflower.png");
     public static final ZZZZFlower ZZZZ_FLOWER = new ZZZZFlower();
 
-    public static ModelRenderer TAIL = new FoxModel<>().tail;
-    static ModelRenderer LEFT_EAR = new FoxModel<>().leftEar;
-    static ModelRenderer RIGHT_EAR = new FoxModel<>().rightEar;
-
-    static boolean beAdd;
-
     static UUID renderingPlayer;
 
     @SubscribeEvent
     public static void onPlayerRender(RenderPlayerEvent.Post event) {
-        Minecraft mc = Minecraft.getInstance();
         PlayerEntity player = event.getPlayer();
-
         renderingPlayer = player.getUniqueID();
 
         MatrixStack matrixStack = event.getMatrixStack();
@@ -66,19 +59,24 @@ public class ListenerPlayerRender {
         ModelRenderer bodyModel = playerModel.bipedBody;
         ModelRenderer headModel = playerModel.bipedHead;
 
-        boolean flag = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFoxTail();
-        TAIL.showModel = flag;
-        LEFT_EAR.showModel = flag;
-        RIGHT_EAR.showModel = flag;
+        TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
+        cap.getTail().showModel = cap.isHasFoxTail();
+        cap.getEars()[0].showModel = cap.isHasFoxTail();
+        cap.getEars()[1].showModel = cap.isHasFoxTail();
 
-        if (!beAdd) {
-            bodyModel.addChild(TAIL);
-            headModel.addChild(LEFT_EAR);
-            headModel.addChild(RIGHT_EAR);
-            beAdd = true;
+        if (!cap.isBeAdd()) {
+            bodyModel.addChild(cap.getTail());
+            headModel.addChild(cap.getEars()[1]);
+            headModel.addChild(cap.getEars()[0]);
+            cap.setBeAdd(true);
         }
 
+        renderFlower(player, matrixStack, event.getPartialRenderTick());
+    }
+
+    private static void renderFlower(PlayerEntity player, MatrixStack matrixStack, float partialTick) {
         if (player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFlower()) {
+            Minecraft mc = Minecraft.getInstance();
             World world = mc.world;
             Vector3d pos = player.getPositionVec().add(-1, 0, -1);
             RenderTypeBuffers renderBuffers = mc.getRenderTypeBuffers();
@@ -89,7 +87,7 @@ public class ListenerPlayerRender {
             int light = LightTexture.packLight(world.getLightFor(LightType.SKY, new BlockPos(pos)), world.getLightFor(LightType.BLOCK, new BlockPos(pos)));
 
             matrixStack.push();
-            matrixStack.rotate(Vector3f.YP.rotationDegrees(-player.getYaw(event.getPartialRenderTick())));
+            matrixStack.rotate(Vector3f.YP.rotationDegrees(-player.getYaw(partialTick)));
             matrixStack.rotate(Vector3f.XP.rotationDegrees(180));
             matrixStack.translate(0, -2.5, 0.5);
 
@@ -112,39 +110,49 @@ public class ListenerPlayerRender {
 
     @SubscribeEvent
     public static void onModelRender(RendererModelEvent.Pre event) {
-        ModelRenderer mr = event.getModelRenderer();
-        if (mr == TAIL || mr == LEFT_EAR || mr == RIGHT_EAR) {
+        if (renderingPlayer != null) {
+            ModelRenderer mr = event.getModelRenderer();
             Minecraft mc = Minecraft.getInstance();
-            FoxRenderer foxRender = new FoxRenderer(mc.getRenderManager());
-            FoxEntity foxEntity = new FoxEntity(EntityType.FOX, mc.world);
-            RenderType type = new FoxModel<>().getRenderType(foxRender.getEntityTexture(foxEntity));
-            IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
-            event.setBufferIn(buffer);
+            PlayerEntity player = mc.world.getPlayerByUuid(renderingPlayer);
+            TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
+            if (mr == cap.getTail() || mr == cap.getEars()[0] || mr == cap.getEars()[1]) {
+                if (mr.showModel) {
+                    FoxRenderer foxRender = new FoxRenderer(mc.getRenderManager());
+                    FoxEntity foxEntity = new FoxEntity(EntityType.FOX, mc.world);
+                    RenderType type = new FoxModel<>().getRenderType(foxRender.getEntityTexture(foxEntity));
+                    IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
+                    event.setBufferIn(buffer);
 
-            event.getMatrixStackIn().push();
+                    event.getMatrixStackIn().push();
 
-            if (mr == TAIL) {
-                event.getMatrixStackIn().translate(0, 4 / 16F, -12.5 / 16F);
-                event.getMatrixStackIn().rotate(Vector3f.XP.rotationDegrees(60));
-            }
-            else {
-                event.getMatrixStackIn().translate(-1 / 16F, -6 / 16F, 1 / 16F);
+                    if (mr == cap.getTail()) {
+                        event.getMatrixStackIn().translate(0, 4 / 16F, -12.5 / 16F);
+                        event.getMatrixStackIn().rotate(Vector3f.XP.rotationDegrees(60));
+                    } else {
+                        event.getMatrixStackIn().translate(-1 / 16F, -6 / 16F, 1 / 16F);
+                    }
+                }
             }
         }
     }
 
     @SubscribeEvent
     public static void onModelRenderPost(RendererModelEvent.Post event) {
-        ModelRenderer mr = event.getModelRenderer();
-        if (mr == TAIL || mr == LEFT_EAR || mr == RIGHT_EAR) {
+        if (renderingPlayer != null) {
+            ModelRenderer mr = event.getModelRenderer();
             Minecraft mc = Minecraft.getInstance();
             PlayerEntity player = mc.world.getPlayerByUuid(renderingPlayer);
-            EntityRenderer<? super PlayerEntity> playerRenderer = mc.getRenderManager().getRenderer(player);
-            RenderType type = new PlayerModel<PlayerEntity>(0, false).getRenderType(playerRenderer.getEntityTexture(player));
-            IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
-            event.setBufferIn(buffer);
+            TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
+            if (mr == cap.getTail() || mr == cap.getEars()[0] || mr == cap.getEars()[1]) {
+                if (mr.showModel) {
+                    EntityRenderer<? super PlayerEntity> playerRenderer = mc.getRenderManager().getRenderer(player);
+                    RenderType type = new PlayerModel<PlayerEntity>(0, false).getRenderType(playerRenderer.getEntityTexture(player));
+                    IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
+                    event.setBufferIn(buffer);
 
-            event.getMatrixStackIn().pop();
+                    event.getMatrixStackIn().pop();
+                }
+            }
         }
     }
 }

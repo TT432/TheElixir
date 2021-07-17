@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.teacon.theelixir.entity.DirtBallEntity;
 import org.teacon.theelixir.entity.GrenadeEntity;
 import org.teacon.theelixir.item.*;
 
@@ -25,6 +26,8 @@ public class RegistryHandler {
     public static final BobBoots BOB_BOOTS = new BobBoots();
     public static final IAmFurryItem I_AM_FURRY_ITEM = new IAmFurryItem();
     public static final AssRevealGoggles ASS_REVEAL_GOGGLES = new AssRevealGoggles();
+    public static final DustySword DUSTY_SWORD = new DustySword();
+    public static final DirtBallItem DIRT_BALL_ITEM = new DirtBallItem();
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
@@ -38,7 +41,9 @@ public class RegistryHandler {
                 SMELLY_GRENADE,
                 BOB_BOOTS,
                 I_AM_FURRY_ITEM,
-                ASS_REVEAL_GOGGLES
+                ASS_REVEAL_GOGGLES,
+                DUSTY_SWORD,
+                DIRT_BALL_ITEM
         );
     }
 
@@ -48,10 +53,17 @@ public class RegistryHandler {
                     .trackingRange(4)
                     .updateInterval(10).build("grenade_entity");
 
+    public static final EntityType<DirtBallEntity> DIRT_BALL_ENTITY =
+            EntityType.Builder.<DirtBallEntity>create(DirtBallEntity::new, EntityClassification.MISC)
+                    .size(0.25F, 0.25F)
+                    .trackingRange(4)
+                    .updateInterval(10).build("dirt_ball_entity");
+
     @SubscribeEvent
     public static void onEntityTypeRegistry(RegistryEvent.Register<EntityType<?>> event) {
         event.getRegistry().registerAll(
-                GRENADE_ENTITY.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "grenade_entity"))
+                GRENADE_ENTITY.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "grenade_entity")),
+                DIRT_BALL_ENTITY.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "dirt_ball_entity"))
         );
     }
 }

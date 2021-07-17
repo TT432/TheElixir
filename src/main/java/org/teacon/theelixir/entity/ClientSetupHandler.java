@@ -17,5 +17,6 @@ public class ClientSetupHandler {
     public static void onClientSetup(FMLClientSetupEvent event) {
         Minecraft mc = Minecraft.getInstance();
         mc.getRenderManager().register(RegistryHandler.GRENADE_ENTITY, new SpriteRenderer<>(mc.getRenderManager(), mc.getItemRenderer()));
+        mc.getRenderManager().register(RegistryHandler.DIRT_BALL_ENTITY, new SpriteRenderer<>(mc.getRenderManager(), mc.getItemRenderer()));
     }
 }
