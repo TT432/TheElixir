@@ -1,5 +1,6 @@
 package org.teacon.theelixir.item;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -8,12 +9,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 import org.teacon.theelixir.RegistryHandler;
 import org.teacon.theelixir.TheElixir;
 import org.teacon.theelixir.capability.CapabilityRegistryHandler;
 import org.teacon.theelixir.capability.TheElixirCapability;
 import org.teacon.theelixir.damagesource.ModDamageSources;
 import org.teacon.theelixir.utils.EntityUtils;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author DustW
@@ -53,6 +60,12 @@ public class DustySword extends SwordItem {
         }, 1, -2.4F, new Properties().group(ModItemGroup.INSTANCE).maxStackSize(1));
 
         this.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "dusty_sword"));
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new StringTextComponent("在开启“土球之花”时获得伤害加成并射出土球"));
     }
 
     @Override

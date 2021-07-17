@@ -142,15 +142,18 @@ public class ListenerPlayerRender {
             ModelRenderer mr = event.getModelRenderer();
             Minecraft mc = Minecraft.getInstance();
             PlayerEntity player = mc.world.getPlayerByUuid(renderingPlayer);
-            TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
-            if (mr == cap.getTail() || mr == cap.getEars()[0] || mr == cap.getEars()[1]) {
-                if (mr.showModel) {
-                    EntityRenderer<? super PlayerEntity> playerRenderer = mc.getRenderManager().getRenderer(player);
-                    RenderType type = new PlayerModel<PlayerEntity>(0, false).getRenderType(playerRenderer.getEntityTexture(player));
-                    IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
-                    event.setBufferIn(buffer);
 
-                    event.getMatrixStackIn().pop();
+            if (player != null) {
+                TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
+                if (mr == cap.getTail() || mr == cap.getEars()[0] || mr == cap.getEars()[1]) {
+                    if (mr.showModel) {
+                        EntityRenderer<? super PlayerEntity> playerRenderer = mc.getRenderManager().getRenderer(player);
+                        RenderType type = new PlayerModel<PlayerEntity>(0, false).getRenderType(playerRenderer.getEntityTexture(player));
+                        IVertexBuilder buffer = mc.getRenderTypeBuffers().getBufferSource().getBuffer(type);
+                        event.setBufferIn(buffer);
+
+                        event.getMatrixStackIn().pop();
+                    }
                 }
             }
         }

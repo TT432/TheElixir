@@ -26,6 +26,8 @@ public class SignInCard extends ModItemBase {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("所有者: " + (stack.getOrCreateTag().contains("owner") ? stack.getShareTag().getString("owner") : "暂无")));
         tooltip.add(new StringTextComponent("打卡天数: " + stack.getOrCreateTag().getInt("sign_in")));
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new StringTextComponent("普冷姆独家赞助"));
     }
 
     @Override

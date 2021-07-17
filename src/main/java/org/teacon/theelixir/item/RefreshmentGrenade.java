@@ -11,6 +11,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import org.lwjgl.system.CallbackI;
 import org.teacon.theelixir.entity.GrenadeEntity;
 
 import javax.annotation.Nullable;
@@ -27,6 +28,8 @@ public class RefreshmentGrenade extends GrenadeItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new StringTextComponent("右键以丢出一个茶点手雷，恢复范围内玩家饱食度"));
+        tooltip.add(new StringTextComponent(" "));
         tooltip.add(new StringTextComponent("保护好你的曲奇(cookie), 不要被其他人偷走."));
     }
 

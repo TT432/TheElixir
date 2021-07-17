@@ -27,6 +27,9 @@ public class BobBoots extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new StringTextComponent("对生物的屁股击打会造成20点伤害。"));
+        tooltip.add(new StringTextComponent("戴上“屁股揭示护目镜”以揭示“屁股”"));
+        tooltip.add(new StringTextComponent(" "));
         tooltip.add(new StringTextComponent("哦, 我的上帝! 我发誓, 我一定要用我的靴子狠狠地踢你的屁股!"));
     }
 
