@@ -3,15 +3,10 @@ package com.nmmoc7.theelixir.capability;
 import com.nmmoc7.theelixir.network.ModNetworkManager;
 import com.nmmoc7.theelixir.network.server.FlowerSyncServer;
 import com.nmmoc7.theelixir.network.server.FoxTailSyncServer;
-import net.minecraft.client.renderer.entity.model.FoxModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
 
 /**
@@ -30,8 +25,6 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     private boolean hasFlower;
 
     private boolean hasFoxTail;
-    @OnlyIn(Dist.CLIENT)
-    private final FoxModel<FoxEntity> foxModel = new FoxModel<>();
     boolean beAdd = false;
 
     public void init(ServerPlayerEntity owner) {
@@ -66,16 +59,6 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
 
     public boolean isHasFoxTail() {
         return hasFoxTail;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public ModelRenderer getTail() {
-        return foxModel.tail;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public ModelRenderer[] getEars() {
-        return new ModelRenderer[] {foxModel.leftEar, foxModel.rightEar};
     }
 
     public boolean isBeAdd() {
