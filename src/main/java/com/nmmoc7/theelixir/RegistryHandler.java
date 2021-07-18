@@ -28,6 +28,8 @@ public class RegistryHandler {
     public static final AssRevealGoggles ASS_REVEAL_GOGGLES = new AssRevealGoggles();
     public static final DustySword DUSTY_SWORD = new DustySword();
     public static final DirtBallItem DIRT_BALL_ITEM = new DirtBallItem();
+    public static final HumanGlass HUMAN_GLASS = new HumanGlass();
+    public static final SoulBomb SOUL_BOMB = new SoulBomb();
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
@@ -43,7 +45,9 @@ public class RegistryHandler {
                 I_AM_FURRY_ITEM,
                 ASS_REVEAL_GOGGLES,
                 DUSTY_SWORD,
-                DIRT_BALL_ITEM
+                DIRT_BALL_ITEM,
+                HUMAN_GLASS,
+                SOUL_BOMB
         );
     }
 
