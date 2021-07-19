@@ -17,12 +17,10 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     /** 不要在客户端调用 */
     private ServerPlayerEntity owner;
 
-    private BlockPos lastPos;
-    private ServerWorld lastWorld;
-
     public int difficultyPoint;
 
     private boolean hasFlower;
+    private int flowerSpeed = 6;
 
     private boolean hasFoxTail;
     boolean beAdd = false;
@@ -69,6 +67,14 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
         this.beAdd = beAdd;
     }
 
+    public int getFlowerSpeed() {
+        return flowerSpeed;
+    }
+
+    public void setFlowerSpeed(int flowerSpeed) {
+        this.flowerSpeed = flowerSpeed;
+    }
+
     public void setHasFoxTail(boolean hasFoxTail) {
         this.hasFoxTail = hasFoxTail;
 
@@ -97,22 +103,6 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
             owner.extinguish();
 
             owner.getFoodStats().setFoodLevel(1);
-
-            if (lastWorld == null) {
-                lastWorld = owner.getServerWorld();
-            }
-
-            if (lastPos == null) {
-                lastPos = owner.getPosition();
-            }
-
-            if (owner.getPosition().distanceSq(lastPos) > 1000 && lastWorld == owner.getServerWorld()) {
-                owner.setPosition(lastPos.getX(), lastPos.getY(), lastPos.getZ());
-            }
-            else {
-                lastPos = owner.getPosition();
-                lastWorld = owner.getServerWorld();
-            }
         }
     }
 }

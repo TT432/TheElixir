@@ -2,6 +2,8 @@ package com.nmmoc7.theelixir.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
+import com.nmmoc7.theelixir.capability.TheElixirCapability;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -163,8 +165,9 @@ public class ZZZZFlower extends EntityModel<Entity> {
 
 	@Override
 	public void setLivingAnimations(Entity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-		head1.rotateAngleZ -= partialTick * Math.toRadians(6);
-		head2.rotateAngleZ -= partialTick * Math.toRadians(6);
+		TheElixirCapability cap = entityIn.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
+		head1.rotateAngleZ -= partialTick * Math.toRadians(cap.getFlowerSpeed());
+		head2.rotateAngleZ -= partialTick * Math.toRadians(cap.getFlowerSpeed());
 	}
 
 	@Override

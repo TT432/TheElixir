@@ -31,7 +31,7 @@ public class TextItem extends Item {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("右键自杀"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("小朋友们请不要模仿哦"));
+        tooltip.add(new StringTextComponent("§7§o§l小朋友们请不要模仿哦"));
     }
 
     @Override

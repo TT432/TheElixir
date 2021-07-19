@@ -24,11 +24,19 @@ public class FlowerItem extends ModItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
-            playerIn.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).ifPresent(theCap -> {
-                theCap.setHasFlower(!theCap.isHasFlower());
-            });
+            if (!playerIn.isSneaking()) {
+                playerIn.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).ifPresent(theCap -> {
+                    theCap.setHasFlower(!theCap.isHasFlower());
+                });
 
-            playerIn.getCooldownTracker().setCooldown(playerIn.getHeldItem(handIn).getItem(), 20);
+                playerIn.getCooldownTracker().setCooldown(playerIn.getHeldItem(handIn).getItem(), 20);
+            }
+            else {
+                playerIn.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).ifPresent(theCap -> {
+                    theCap.setFlowerSpeed(theCap.getFlowerSpeed() < 60 ? theCap.getFlowerSpeed() + 6 : 0);
+                    playerIn.sendStatusMessage(new StringTextComponent("当前速度： " + theCap.getFlowerSpeed()), false);
+                });
+            }
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -38,5 +46,6 @@ public class FlowerItem extends ModItemBase {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("右键以开启土球之花"));
+        tooltip.add(new StringTextComponent("shift右键调节速度"));
     }
 }

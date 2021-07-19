@@ -43,6 +43,6 @@ public class ElixirItem extends ModItemBase {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("右键以获得不死不灭的能力"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("哼，月球人"));
+        tooltip.add(new StringTextComponent("§7§o§l哼，月球人"));
     }
 }

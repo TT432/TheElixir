@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.math.vector.Vector3f;
 
 /**
@@ -34,7 +35,7 @@ public class FoxLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<Play
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
 
-        if (cap != null && cap.isHasFoxTail()) {
+        if (cap != null && cap.isHasFoxTail() && !player.isSpectator() && player.getActivePotionEffect(Effects.INVISIBILITY) == null) {
             ModelRenderer tail = foxModel.tail;
             ModelRenderer leftEar = foxModel.leftEar;
             ModelRenderer rightEar = foxModel.rightEar;

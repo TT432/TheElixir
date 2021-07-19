@@ -58,6 +58,8 @@ public class Restrainer extends SwordItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("裁决！不死不灭之人的末日！"));
+        tooltip.add(new StringTextComponent("能杀死拥有不死灵药效果的生物的程度"));
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new StringTextComponent("§7§o§l裁决！不死不灭之人的末日！"));
     }
 }

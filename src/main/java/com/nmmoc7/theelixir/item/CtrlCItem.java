@@ -1,14 +1,16 @@
 package com.nmmoc7.theelixir.item;
 
-import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -16,26 +18,27 @@ import java.util.List;
 /**
  * @author DustW
  */
-public class HumanGlass extends ModItemBase {
-    public HumanGlass() {
-        super("human_glass", 1);
+public class CtrlCItem extends ModItemBase {
+    public CtrlCItem() {
+        super("ctrl_c", 1);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("右键它已洗掉不死的诅咒"));
+        tooltip.add(new StringTextComponent("§c右键关闭服务器！"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("§7§o§l后悔药，哼，后悔药也是有的吧"));
+        tooltip.add(new StringTextComponent("§7§o§l不怎么好笑的玩笑"));
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
-            playerIn.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).ifPresent(theCap -> {
-                theCap.setUsedElixir(false);
-                playerIn.sendMessage(new StringTextComponent("成功洗掉了不死的诅咒"), playerIn.getUniqueID());
-            });
+            for (ServerPlayerEntity player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+                for (ServerPlayerEntity serverPlayerEntity : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+                    player.sendStatusMessage(new StringTextComponent("§e" + serverPlayerEntity.getDisplayName().getString() + "退出了游戏"), false);
+                }
+            }
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

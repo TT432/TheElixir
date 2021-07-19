@@ -36,7 +36,7 @@ public class SoulBomb extends ModItemBase {
                     entity.getPosX(), entity.getPosY(), entity.getPosZ());
 
             if (target != null) {
-                Vector3d motion = entity.getPositionVec().subtract(target.getPositionVec()).normalize().scale(2);
+                Vector3d motion = target.getPositionVec().subtract(entity.getPositionVec()).normalize().scale(0.04);
                 entity.setMotion(motion);
             }
         }

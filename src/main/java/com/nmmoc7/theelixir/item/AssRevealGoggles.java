@@ -72,5 +72,7 @@ public class AssRevealGoggles extends ArmorItem {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("戴上以揭示“屁股”"));
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new StringTextComponent("§7§o§l额，不是，我不是变态，只是那些人的屁股太引人注目了！"));
     }
 }

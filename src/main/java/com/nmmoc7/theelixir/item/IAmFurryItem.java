@@ -39,6 +39,7 @@ public class IAmFurryItem extends ModItemBase {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("右键以得到可爱的狐狸尾巴和耳朵"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("福瑞控是吧？ —— Black Hand"));
+        tooltip.add(new StringTextComponent("§7§o§l福瑞控是吧？ "));
+        tooltip.add(new StringTextComponent("             ——Black Hand"));
     }
 }

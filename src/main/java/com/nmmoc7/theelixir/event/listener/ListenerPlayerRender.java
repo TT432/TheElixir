@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeBuffers;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
@@ -45,7 +46,7 @@ public class ListenerPlayerRender {
 
     private static void renderFlower(PlayerEntity player, MatrixStack matrixStack, float partialTick) {
         TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
-        if (cap != null && cap.isHasFlower()) {
+        if (cap != null && cap.isHasFlower() && !player.isSpectator() && player.getActivePotionEffect(Effects.INVISIBILITY) == null) {
             Minecraft mc = Minecraft.getInstance();
             World world = mc.world;
             Vector3d pos = player.getPositionVec().add(-1, 0, -1);

@@ -34,6 +34,16 @@ public class DirtBallEntity extends ProjectileItemEntity {
         super(RegistryHandler.DIRT_BALL_ENTITY, livingEntityIn, worldIn);
     }
 
+    int life = 0;
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (++life > 100) {
+            remove();
+        }
+    }
+
     @Override
     protected void onImpact(RayTraceResult result) {
         super.onImpact(result);

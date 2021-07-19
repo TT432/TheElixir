@@ -29,7 +29,7 @@ public class RefreshmentGrenade extends GrenadeItemBase {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("右键以丢出一个茶点手雷，恢复范围内玩家饱食度"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("保护好你的曲奇(cookie), 不要被其他人偷走."));
+        tooltip.add(new StringTextComponent("§7§o§l保护好你的曲奇(cookie), 不要被其他人偷走."));
     }
 
     @Override

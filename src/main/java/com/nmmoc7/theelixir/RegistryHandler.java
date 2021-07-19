@@ -5,7 +5,7 @@ import com.nmmoc7.theelixir.entity.GrenadeEntity;
 import com.nmmoc7.theelixir.item.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,6 +30,18 @@ public class RegistryHandler {
     public static final DirtBallItem DIRT_BALL_ITEM = new DirtBallItem();
     public static final HumanGlass HUMAN_GLASS = new HumanGlass();
     public static final SoulBomb SOUL_BOMB = new SoulBomb();
+    public static final MangoBox MANGO_BOX = new MangoBox();
+    public static final MangoFood MANGO_FOOD = new MangoFood();
+    public static final WaterCow WATER_COW = new WaterCow();
+    public static final CtrlCItem CTRL_C_ITEM = new CtrlCItem();
+
+    public static final ModItemBase RHINE_METALS = new ModItemBase("rhine_metals", 64);
+    public static final ItemTierBase RHINE_TIER = new ItemTierBase(4, 5472, 7, 3, 17, RHINE_METALS);
+    public static final SwordItem RHINE_SWORD = new SwordItem(RHINE_TIER, 5, -2.4F, new Item.Properties().group(ModItemGroup.INSTANCE));
+    public static final ShovelItem RHINE_SHOVEL = new ShovelItem(RHINE_TIER, 1.5F, -3.0F, new Item.Properties().group(ModItemGroup.INSTANCE));
+    public static final PickaxeItem RHINE_PICKAXE = new PickaxeItem(RHINE_TIER, 1, -2.8F, new Item.Properties().group(ModItemGroup.INSTANCE));
+    public static final AxeItem RHINE_AXE = new AxeItem(RHINE_TIER, 6.0F, -3.2F, new Item.Properties().group(ModItemGroup.INSTANCE));
+    public static final HoeItem RHINE_HOE = new HoeItem(RHINE_TIER, 0, -3.0F, new Item.Properties().group(ModItemGroup.INSTANCE));
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
@@ -47,7 +59,17 @@ public class RegistryHandler {
                 DUSTY_SWORD,
                 DIRT_BALL_ITEM,
                 HUMAN_GLASS,
-                SOUL_BOMB
+                SOUL_BOMB,
+                RHINE_METALS,
+                MANGO_BOX,
+                MANGO_FOOD,
+                WATER_COW,
+                CTRL_C_ITEM,
+                RHINE_PICKAXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_pickaxe")),
+                RHINE_AXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_axe")),
+                RHINE_HOE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_hoe")),
+                RHINE_SWORD.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_sword")),
+                RHINE_SHOVEL.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_shovel"))
         );
     }
 
