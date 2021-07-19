@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nmmoc7.theelixir.TheElixir;
 import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
+import com.nmmoc7.theelixir.capability.TheElixirCapability;
 import com.nmmoc7.theelixir.model.ZZZZFlower;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
@@ -37,12 +38,14 @@ public class ListenerPlayerRender {
         PlayerEntity player = event.getPlayer();
 
         MatrixStack matrixStack = event.getMatrixStack();
-
-        renderFlower(player, matrixStack, event.getPartialRenderTick());
+        if (player != null) {
+            renderFlower(player, matrixStack, event.getPartialRenderTick());
+        }
     }
 
     private static void renderFlower(PlayerEntity player, MatrixStack matrixStack, float partialTick) {
-        if (player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isHasFlower()) {
+        TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
+        if (cap != null && cap.isHasFlower()) {
             Minecraft mc = Minecraft.getInstance();
             World world = mc.world;
             Vector3d pos = player.getPositionVec().add(-1, 0, -1);

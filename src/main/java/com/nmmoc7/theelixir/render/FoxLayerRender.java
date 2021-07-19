@@ -34,7 +34,7 @@ public class FoxLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<Play
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
 
-        if (cap.isHasFoxTail()) {
+        if (cap != null && cap.isHasFoxTail()) {
             ModelRenderer tail = foxModel.tail;
             ModelRenderer leftEar = foxModel.leftEar;
             ModelRenderer rightEar = foxModel.rightEar;

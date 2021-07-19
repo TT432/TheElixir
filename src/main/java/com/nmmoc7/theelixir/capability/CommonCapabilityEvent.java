@@ -22,7 +22,7 @@ public class CommonCapabilityEvent {
         if (entity instanceof PlayerEntity) {
             if (entity instanceof ServerPlayerEntity) {
                 event.addCapability(new ResourceLocation(TheElixir.MOD_ID, "the_elixir_capability"), new TheElixirCapabilityProvider().init((ServerPlayerEntity) entity));
-            } else if (entity instanceof ClientPlayerEntity) {
+            } else if (entity instanceof PlayerEntity) {
                 event.addCapability(new ResourceLocation(TheElixir.MOD_ID, "the_elixir_capability"), new TheElixirCapabilityProvider());
             }
         }
