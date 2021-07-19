@@ -35,6 +35,8 @@ public class DirtBallItem extends ModItemBase {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("右键以丢出土球球，在开启土球之花时伤害翻倍！"));
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new StringTextComponent("§7§o§l土球球不独家赞助"));
     }
 
     @Override

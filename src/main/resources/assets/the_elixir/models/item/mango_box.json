@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "the_elixir:item/mango_box_empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "empty": 1
+      },
+      "model": "the_elixir:item/mango_box_empty"
+    }
+  ]
+}

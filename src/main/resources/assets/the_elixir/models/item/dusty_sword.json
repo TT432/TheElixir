@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "the_elixir:item/dusty_sword_grayscale"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "flower": 1
+      },
+      "model": "the_elixir:item/dusty_sword_grayscale"
+    }
+  ]
+}

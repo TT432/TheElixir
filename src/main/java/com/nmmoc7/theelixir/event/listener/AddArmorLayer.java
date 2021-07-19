@@ -1,5 +1,6 @@
 package com.nmmoc7.theelixir.event.listener;
 
+import com.nmmoc7.theelixir.render.FlowerLayerRender;
 import com.nmmoc7.theelixir.render.FoxLayerRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -36,6 +37,7 @@ public class AddArmorLayer {
         for (LayerRenderer<T, M> layerRenderer : new ArrayList<>(renderer.layerRenderers)) {
             if (layerRenderer.getClass() == BipedArmorLayer.class) {
                 renderer.addLayer((LayerRenderer<T, M>) new FoxLayerRender((IEntityRenderer<PlayerEntity, PlayerModel<PlayerEntity>>) renderer));
+                renderer.addLayer((LayerRenderer<T, M>) new FlowerLayerRender((IEntityRenderer<PlayerEntity, PlayerModel<PlayerEntity>>) renderer));
                 break;
             }
         }
