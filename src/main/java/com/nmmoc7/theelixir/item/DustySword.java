@@ -17,6 +17,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -65,7 +66,9 @@ public class DustySword extends SwordItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("在开启“土球之花”时获得伤害加成并射出土球"));
+        tooltip.add(new TranslationTextComponent("tooltip.dusty_sword.1"));
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new TranslationTextComponent("tooltip.dusty_sword.2"));
     }
 
     @Override

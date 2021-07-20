@@ -13,6 +13,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -71,7 +72,7 @@ public class AssRevealGoggles extends ArmorItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("戴上以揭示“屁股”"));
+        tooltip.add(new TranslationTextComponent("tooltip.ass_reveal_goggles"));
         tooltip.add(new StringTextComponent(" "));
         tooltip.add(new StringTextComponent("§7§o§l额，不是，我不是变态，只是那些人的屁股太引人注目了！"));
     }

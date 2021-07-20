@@ -8,6 +8,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -24,9 +25,9 @@ public class HumanGlass extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("右键它已洗掉不死的诅咒"));
+        tooltip.add(new TranslationTextComponent("tooltip.human_glass.1"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("§7§o§l后悔药，哼，后悔药也是有的吧"));
+        tooltip.add(new TranslationTextComponent("tooltip.human_glass.2"));
     }
 
     @Override

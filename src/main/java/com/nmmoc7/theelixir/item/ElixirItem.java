@@ -9,6 +9,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -30,7 +31,12 @@ public class ElixirItem extends ModItemBase {
                     playerIn.sendMessage(new StringTextComponent("已经用过了!"), Util.DUMMY_UUID);
                 }
                 else {
-                    playerIn.sendMessage(new StringTextComponent("使用了蓬莱之药!"), Util.DUMMY_UUID);
+                    playerIn.sendMessage(new StringTextComponent("使用了蓬莱之药，获得了不死的力量。"), Util.DUMMY_UUID);
+
+                    if (!playerIn.isCreative()) {
+                        playerIn.getHeldItem(handIn).shrink(1);
+                    }
+
                     theCap.setUsedElixir(true);
                 }
             });
@@ -41,8 +47,8 @@ public class ElixirItem extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("右键以获得不死不灭的能力"));
+        tooltip.add(new TranslationTextComponent("tooltip.elixir_item.1"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("§7§o§l哼，月球人"));
+        tooltip.add(new TranslationTextComponent("tooltip.elixir_item.2"));
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -27,7 +28,7 @@ public class MangoFood extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("食用会得到10s反胃"));
+        tooltip.add(new TranslationTextComponent("tooltip.mango_food"));
         tooltip.add(new StringTextComponent(" "));
         tooltip.add(new StringTextComponent("§7§o§l哎呀妈呀真好吃，呕，真好吃"));
     }

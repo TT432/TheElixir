@@ -11,6 +11,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -27,8 +28,8 @@ public class BobBoots extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("对生物的屁股击打会造成20点伤害。"));
-        tooltip.add(new StringTextComponent("戴上“屁股揭示护目镜”以揭示“屁股”"));
+        tooltip.add(new TranslationTextComponent("tooltip.bob_boots.1"));
+        tooltip.add(new TranslationTextComponent("tooltip.bob_boots.2"));
         tooltip.add(new StringTextComponent(" "));
         tooltip.add(new StringTextComponent("§7§o§l哦, 我的上帝! 我发誓, 我一定要用我的靴子狠狠地踢你的屁股!"));
     }

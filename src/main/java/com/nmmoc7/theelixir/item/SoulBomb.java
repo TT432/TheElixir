@@ -36,7 +36,7 @@ public class SoulBomb extends ModItemBase {
                     entity.getPosX(), entity.getPosY(), entity.getPosZ());
 
             if (target != null) {
-                Vector3d motion = target.getPositionVec().subtract(entity.getPositionVec()).normalize().scale(0.2);
+                Vector3d motion = target.getPositionVec().subtract(entity.getPositionVec()).normalize().scale(0.5);
                 entity.setMotion(motion);
             }
         }
@@ -46,6 +46,8 @@ public class SoulBomb extends ModItemBase {
 
     @Override
     public boolean isDamageable(DamageSource damageSource) {
-        return !damageSource.isExplosion() && super.isDamageable(damageSource);
+        boolean flag1 = !damageSource.isExplosion();
+        boolean flag2 = !damageSource.isFireDamage();
+        return flag1 && flag2 && super.isDamageable(damageSource);
     }
 }

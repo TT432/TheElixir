@@ -25,10 +25,10 @@ public class MangoBox extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("右键存入副手物品"));
+        tooltip.add(new TranslationTextComponent("tooltip.mango_box.1"));
         tooltip.add(new StringTextComponent("存储的物品: " + (stack.getOrCreateTag().getBoolean("has") ? ItemStack.read(stack.getOrCreateTag().getCompound("item")).getDisplayName().getString() : "无")));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("§7§o§l零落耀光独家赞助"));
+        tooltip.add(new TranslationTextComponent("tooltip.mango_box.2"));
     }
 
     @Override

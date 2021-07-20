@@ -26,9 +26,9 @@ public class CtrlCItem extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("§c右键关闭服务器！"));
+        tooltip.add(new TranslationTextComponent("tooltip.ctrl_c.1"));
         tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent("§7§o§l不怎么好笑的玩笑"));
+        tooltip.add(new TranslationTextComponent("tooltip.ctrl_c.2"));
     }
 
     @Override

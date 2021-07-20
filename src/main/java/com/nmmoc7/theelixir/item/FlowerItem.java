@@ -8,6 +8,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -45,7 +46,7 @@ public class FlowerItem extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("右键以开启土球之花"));
-        tooltip.add(new StringTextComponent("shift右键调节速度"));
+        tooltip.add(new TranslationTextComponent("tooltip.flower_item.1"));
+        tooltip.add(new TranslationTextComponent("tooltip.flower_item.2"));
     }
 }

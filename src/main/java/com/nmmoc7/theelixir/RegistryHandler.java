@@ -32,7 +32,6 @@ public class RegistryHandler {
     public static final SoulBomb SOUL_BOMB = new SoulBomb();
     public static final MangoBox MANGO_BOX = new MangoBox();
     public static final MangoFood MANGO_FOOD = new MangoFood();
-    public static final WaterCow WATER_COW = new WaterCow();
     public static final CtrlCItem CTRL_C_ITEM = new CtrlCItem();
 
     public static final ModItemBase RHINE_METALS = new ModItemBase("rhine_metals", 64);
@@ -42,6 +41,14 @@ public class RegistryHandler {
     public static final PickaxeItem RHINE_PICKAXE = new PickaxeItem(RHINE_TIER, 1, -2.8F, new Item.Properties().group(ModItemGroup.INSTANCE));
     public static final AxeItem RHINE_AXE = new AxeItem(RHINE_TIER, 6.0F, -3.2F, new Item.Properties().group(ModItemGroup.INSTANCE));
     public static final HoeItem RHINE_HOE = new HoeItem(RHINE_TIER, 0, -3.0F, new Item.Properties().group(ModItemGroup.INSTANCE));
+
+    /*
+     * walnut核桃
+     * peanut花生
+     * peanut butter花生酱
+     * reactor反应堆
+     */
+
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
@@ -63,7 +70,6 @@ public class RegistryHandler {
                 RHINE_METALS,
                 MANGO_BOX,
                 MANGO_FOOD,
-                WATER_COW,
                 CTRL_C_ITEM,
                 RHINE_PICKAXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_pickaxe")),
                 RHINE_AXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_axe")),

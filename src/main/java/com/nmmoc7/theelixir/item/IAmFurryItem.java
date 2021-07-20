@@ -8,6 +8,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -37,9 +38,11 @@ public class IAmFurryItem extends ModItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("右键以得到可爱的狐狸尾巴和耳朵"));
+        tooltip.add(new TranslationTextComponent("tooltip.i_am_furry"));
         tooltip.add(new StringTextComponent(" "));
         tooltip.add(new StringTextComponent("§7§o§l福瑞控是吧？ "));
-        tooltip.add(new StringTextComponent("             ——Black Hand"));
+        tooltip.add(new StringTextComponent("§7§o§l        ——Black Hand"));
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new StringTextComponent("§7§o§l马雷用了都说好"));
     }
 }
