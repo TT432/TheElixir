@@ -3,7 +3,6 @@ package com.nmmoc7.theelixir;
 import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
 import com.nmmoc7.theelixir.capability.TheElixirCapability;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;

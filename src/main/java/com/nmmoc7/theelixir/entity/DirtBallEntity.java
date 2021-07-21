@@ -9,6 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.IPacket;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -16,6 +18,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 /**
@@ -49,6 +52,7 @@ public class DirtBallEntity extends ProjectileItemEntity {
         super.onImpact(result);
         if (!world.isRemote) {
             world.createExplosion(null, getPosX(), getPosY(), getPosZ(), 1, Explosion.Mode.NONE);
+            ((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, getItem()), getPosX(), getPosY(), getPosZ(), 25, 1, 1, 1, 0);
         }
         remove();
     }

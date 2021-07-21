@@ -1,7 +1,6 @@
 package com.nmmoc7.theelixir.capability;
 
 import com.nmmoc7.theelixir.TheElixir;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

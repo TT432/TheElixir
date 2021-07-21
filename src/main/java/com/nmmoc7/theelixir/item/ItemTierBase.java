@@ -5,8 +5,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
 
-import java.util.function.Supplier;
-
 /**
  * @author DustW
  */
