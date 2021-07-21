@@ -1,57 +1,33 @@
-package com.nmmoc7.theelixir.model;// Made with Blockbench 3.9.2
-// Exported for Minecraft version 1.15 - 1.16 with MCP mappings
-// Paste this class into your mod and generate all required imports
-
+package com.nmmoc7.theelixir.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.nmmoc7.theelixir.render.ModelUtils;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 
-public class ClothesModel extends EntityModel<Entity> {
-	public final ModelRenderer bone2;
-	public final ModelRenderer leftArm;
-	public final ModelRenderer leftArmIn;
-	public final ModelRenderer rightArm;
-	public final ModelRenderer rightArmIn;
-	public final ModelRenderer body;
-	public final ModelRenderer bowtie;
-	public final ModelRenderer bone3;
-	public final ModelRenderer bone4;
-	public final ModelRenderer bone5;
+public class ClothesModel extends BipedModel<PlayerEntity> {
+	private final ModelRenderer body;
+	private final ModelRenderer bowtie;
+	private final ModelRenderer bone3;
+	private final ModelRenderer bone4;
+	private final ModelRenderer bone5;
+	private final ModelRenderer rightArm;
+	private final ModelRenderer rightArmIn;
+	private final ModelRenderer leftArm;
+	private final ModelRenderer leftArmIn;
 
 	public ClothesModel() {
-		textureWidth = 32;
-		textureHeight = 32;
-
-		bone2 = new ModelRenderer(this);
-		bone2.setRotationPoint(0.0F, 9.0F, -0.1F);
-		
-
-		leftArm = new ModelRenderer(this);
-		leftArm.setRotationPoint(-5.0F, -1.0F, 0.0F);
-		bone2.addChild(leftArm);
-		
-
-		leftArmIn = new ModelRenderer(this);
-		leftArmIn.setRotationPoint(5.0F, 18.0F, 0.0F);
-		leftArm.addChild(leftArmIn);
-		leftArmIn.setTextureOffset(0, 13).addBox(-8.4F, -20.0F, -2.0F, 4.0F, 11.0F, 4.0F, 0.2F, false);
-
-		rightArm = new ModelRenderer(this);
-		rightArm.setRotationPoint(5.0F, -1.0F, 0.0F);
-		bone2.addChild(rightArm);
-		
-
-		rightArmIn = new ModelRenderer(this);
-		rightArmIn.setRotationPoint(-5.0F, 18.0F, 0.0F);
-		rightArm.addChild(rightArmIn);
-		rightArmIn.setTextureOffset(16, 16).addBox(4.4F, -20.0F, -2.0F, 4.0F, 11.0F, 4.0F, 0.2F, false);
+		super(RenderType::getEntityTranslucent, 0, 0.0F, 32, 32);
+		ModelUtils.clearModel(this);
 
 		body = new ModelRenderer(this);
-		body.setRotationPoint(0.0F, 0.0F, 0.0F);
-		bone2.addChild(body);
+		body.setRotationPoint(0.0F, 9.0F, -0.1F);
 		body.setTextureOffset(0, 0).addBox(-4.0F, -9.0F, -2.0F, 8.0F, 9.0F, 4.0F, 0.2F, false);
 
 		bowtie = new ModelRenderer(this);
@@ -70,23 +46,42 @@ public class ClothesModel extends EntityModel<Entity> {
 		bone4.setRotationPoint(2.0F, -21.0F, 2.0F);
 		bowtie.addChild(bone4);
 		setRotationAngle(bone4, 0.0F, 0.0F, -0.7854F);
-		bone4.setTextureOffset(12, 15).addBox(-1.2929F, -1.7071F, -4.5F, 4.0F, 2.0F, 0.0F, 0.2F, false);
-		bone4.setTextureOffset(0, 0).addBox(-5.0F, -1.7071F, -4.5F, 2.0F, 2.0F, 0.0F, 0.2F, false);
+		bone4.setTextureOffset(12, 15).addBox(-1.2929F, -1.7071F, -4.4F, 4.0F, 2.0F, 0.0F, 0.2F, false);
+		bone4.setTextureOffset(0, 0).addBox(-5.0F, -1.7071F, -4.4F, 2.0F, 2.0F, 0.0F, 0.2F, false);
 
 		bone5 = new ModelRenderer(this);
 		bone5.setRotationPoint(0.0F, 0.0F, 0.0F);
 		bowtie.addChild(bone5);
 		bone5.setTextureOffset(12, 13).addBox(-2.0F, -21.0F, -2.51F, 4.0F, 2.0F, 0.0F, 0.2F, false);
-	}
 
-	@Override
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
-		//previously the render function, render code was moved to a method below
+		rightArm = new ModelRenderer(this);
+		rightArm.setRotationPoint(5.0F, 8.0F, -0.1F);
+		
+
+		rightArmIn = new ModelRenderer(this);
+		rightArmIn.setRotationPoint(-5.0F, 18.0F, 0.0F);
+		rightArm.addChild(rightArmIn);
+		rightArmIn.setTextureOffset(16, 16).addBox(4.4F, -26.0F, -2.0F, 4.0F, 11.0F, 4.0F, 0.2F, false);
+
+		leftArm = new ModelRenderer(this);
+		leftArm.setRotationPoint(-5.0F, 8.0F, -0.1F);
+		
+
+		leftArmIn = new ModelRenderer(this);
+		leftArmIn.setRotationPoint(5.0F, 18.0F, 0.0F);
+		leftArm.addChild(leftArmIn);
+		leftArmIn.setTextureOffset(0, 13).addBox(-8.4F, -26.0F, -2.0F, 4.0F, 11.0F, 4.0F, 0.2F, false);
+
+		this.bipedBody.addChild(body);
+		this.bipedRightArm.addChild(rightArm);
+		this.bipedLeftArm.addChild(leftArm);
 	}
 
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		bone2.render(matrixStack, buffer, packedLight, packedOverlay);
+		this.bipedBody.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+		this.bipedRightArm.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+		this.bipedLeftArm.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

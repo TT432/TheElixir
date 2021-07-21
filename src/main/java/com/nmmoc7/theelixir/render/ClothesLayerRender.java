@@ -48,9 +48,9 @@ public class ClothesLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<
             ModelRenderer rightArmModel = playerModel.bipedRightArm;
             ModelRenderer bodyModel = playerModel.bipedBody;
 
-            CLOTHES_MODEL.body.copyModelAngles(bodyModel);
-            CLOTHES_MODEL.leftArmIn.copyModelAngles(leftArmModel);
-            CLOTHES_MODEL.rightArmIn.copyModelAngles(rightArmModel);
+            ModelUtils.copyRotate(CLOTHES_MODEL.bipedBody, bodyModel);
+            ModelUtils.copyRotate(CLOTHES_MODEL.bipedLeftArm, rightArmModel);
+            ModelUtils.copyRotate(CLOTHES_MODEL.bipedRightArm, leftArmModel);
 
             CLOTHES_MODEL.render(matrixStackIn, vertexBuilder, packedLightIn, packedLightIn, 1, 1, 1, 1);
         }
