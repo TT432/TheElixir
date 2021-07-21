@@ -1,16 +1,14 @@
-package com.nmmoc7.theelixir.model;
+package com.nmmoc7.theelixir.model;// Made with Blockbench 3.9.2
+// Exported for Minecraft version 1.15 - 1.16 with MCP mappings
+// Paste this class into your mod and generate all required imports
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nmmoc7.theelixir.render.ModelUtils;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-
 public class ClothesModel extends BipedModel<PlayerEntity> {
 	private final ModelRenderer body;
 	private final ModelRenderer bowtie;
@@ -31,7 +29,7 @@ public class ClothesModel extends BipedModel<PlayerEntity> {
 		body.setTextureOffset(0, 0).addBox(-4.0F, -9.0F, -2.0F, 8.0F, 9.0F, 4.0F, 0.2F, false);
 
 		bowtie = new ModelRenderer(this);
-		bowtie.setRotationPoint(0.0F, 15.0F, 0.0F);
+		bowtie.setRotationPoint(-0.2F, 15.0F, 0.0F);
 		body.addChild(bowtie);
 		
 
@@ -61,27 +59,25 @@ public class ClothesModel extends BipedModel<PlayerEntity> {
 		rightArmIn = new ModelRenderer(this);
 		rightArmIn.setRotationPoint(-5.0F, 18.0F, 0.0F);
 		rightArm.addChild(rightArmIn);
-		rightArmIn.setTextureOffset(16, 16).addBox(4.4F, -26.0F, -2.0F, 4.0F, 11.0F, 4.0F, 0.2F, false);
+		rightArmIn.setTextureOffset(16, 16).addBox(4.0F, -25.9F, -2.0F, 4.0F, 11.0F, 4.0F, 0.4F, false);
 
 		leftArm = new ModelRenderer(this);
-		leftArm.setRotationPoint(-5.0F, 8.0F, -0.1F);
+		leftArm.setRotationPoint(-4.6F, 8.0F, -0.1F);
 		
 
 		leftArmIn = new ModelRenderer(this);
 		leftArmIn.setRotationPoint(5.0F, 18.0F, 0.0F);
 		leftArm.addChild(leftArmIn);
-		leftArmIn.setTextureOffset(0, 13).addBox(-8.4F, -26.0F, -2.0F, 4.0F, 11.0F, 4.0F, 0.2F, false);
+		leftArmIn.setTextureOffset(0, 13).addBox(-8.4F, -25.9F, -2.0F, 4.0F, 11.0F, 4.0F, 0.4F, false);
 
-		this.bipedBody.addChild(body);
-		this.bipedRightArm.addChild(rightArm);
-		this.bipedLeftArm.addChild(leftArm);
+		ModelUtils.addClothes(this, body, leftArm, rightArm);
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		this.bipedBody.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-		this.bipedRightArm.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-		this.bipedLeftArm.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+		this.bipedBody.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 1, 1, 1, 1);
+		this.bipedLeftArm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 1, 1, 1, 1);
+		this.bipedRightArm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 1, 1, 1, 1);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

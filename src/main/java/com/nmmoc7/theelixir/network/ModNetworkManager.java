@@ -5,6 +5,7 @@ import com.nmmoc7.theelixir.network.client.IClientMessage;
 import com.nmmoc7.theelixir.network.server.FlowerSyncServer;
 import com.nmmoc7.theelixir.network.server.FoxTailSyncServer;
 import com.nmmoc7.theelixir.network.server.IServerMessage;
+import com.nmmoc7.theelixir.network.server.SkirtSyncServer;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -50,5 +51,11 @@ public class ModNetworkManager {
                 FoxTailSyncServer::encode,
                 FoxTailSyncServer::decode,
                 FoxTailSyncServer::handle);
+
+        INSTANCE.registerMessage(id++,
+                SkirtSyncServer.class,
+                SkirtSyncServer::encode,
+                SkirtSyncServer::decode,
+                SkirtSyncServer::handle);
     }
 }

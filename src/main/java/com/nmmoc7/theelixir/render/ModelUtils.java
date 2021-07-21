@@ -18,6 +18,12 @@ public class ModelUtils {
         model.bipedLeftLeg = new ModelRenderer(model);
     }
 
+    public static void addClothes(BipedModel<?> model, ModelRenderer body, ModelRenderer leftArm, ModelRenderer rightArm) {
+        model.bipedBody.addChild(body);
+        model.bipedLeftArm.addChild(leftArm);
+        model.bipedRightArm.addChild(rightArm);
+    }
+
     public static void copyRotate(ModelRenderer model1, ModelRenderer model2) {
         model1.rotateAngleX = model2.rotateAngleX;
         model1.rotateAngleY = model2.rotateAngleY;

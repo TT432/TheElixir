@@ -3,6 +3,7 @@ package com.nmmoc7.theelixir.capability;
 import com.nmmoc7.theelixir.network.ModNetworkManager;
 import com.nmmoc7.theelixir.network.server.FlowerSyncServer;
 import com.nmmoc7.theelixir.network.server.FoxTailSyncServer;
+import com.nmmoc7.theelixir.network.server.SkirtSyncServer;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -101,6 +102,38 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
             owner.extinguish();
 
             owner.getFoodStats().setFoodLevel(1);
+        }
+    }
+
+    private boolean chestSkirt = false;
+    private boolean normalSkirt = false;
+
+    public void setChestSkirt(boolean chestSkirt) {
+        this.chestSkirt = chestSkirt;
+        this.normalSkirt = !chestSkirt;
+        skirtSync();
+    }
+
+    public void closeChestSkirt() {
+        this.chestSkirt = false;
+        this.normalSkirt = false;
+        skirtSync();
+    }
+
+    public boolean isChestSkirt() {
+        return chestSkirt;
+    }
+
+    public boolean isNormalSkirt() {
+        return normalSkirt;
+    }
+
+    public void skirtSync() {
+        String threadGroupName = Thread.currentThread().getThreadGroup().getName();
+        if ("SERVER".equals(threadGroupName)) {
+            owner.world.getPlayers().forEach(player -> {
+                ModNetworkManager.serverSendToPlayer(new SkirtSyncServer(owner.getUniqueID(), isChestSkirt(), isNormalSkirt()), (ServerPlayerEntity) player);
+            });
         }
     }
 }
