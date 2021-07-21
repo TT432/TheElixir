@@ -24,7 +24,10 @@ public class ClothesModel extends BipedModel<PlayerEntity> {
 
 	public ClothesModel() {
 		super(RenderType::getEntityTranslucent, 0, 0.0F, 32, 32);
-		ModelUtils.clearModel(this);
+		 // 清理Biped骨架确保后续加载时骨架为空。
+        this.bipedBody = new ModelRenderer(this);
+        this.bipedLeftArm = new ModelRenderer(this);
+        this.bipedRightArm = new ModelRenderer(this);
 
 		body = new ModelRenderer(this);
 		body.setRotationPoint(0.0F, 9.0F, -0.1F);
@@ -33,7 +36,6 @@ public class ClothesModel extends BipedModel<PlayerEntity> {
 		bowtie = new ModelRenderer(this);
 		bowtie.setRotationPoint(0.0F, 15.0F, 0.0F);
 		body.addChild(bowtie);
-		
 
 		bone3 = new ModelRenderer(this);
 		bone3.setRotationPoint(-1.0F, -20.0F, 8.0F);
@@ -57,7 +59,6 @@ public class ClothesModel extends BipedModel<PlayerEntity> {
 		rightArm = new ModelRenderer(this);
 		rightArm.setRotationPoint(5.0F, 8.0F, -0.1F);
 		
-
 		rightArmIn = new ModelRenderer(this);
 		rightArmIn.setRotationPoint(-5.0F, 18.0F, 0.0F);
 		rightArm.addChild(rightArmIn);
@@ -65,7 +66,6 @@ public class ClothesModel extends BipedModel<PlayerEntity> {
 
 		leftArm = new ModelRenderer(this);
 		leftArm.setRotationPoint(-5.0F, 8.0F, -0.1F);
-		
 
 		leftArmIn = new ModelRenderer(this);
 		leftArmIn.setRotationPoint(5.0F, 18.0F, 0.0F);
@@ -75,13 +75,6 @@ public class ClothesModel extends BipedModel<PlayerEntity> {
 		this.bipedBody.addChild(body);
 		this.bipedRightArm.addChild(rightArm);
 		this.bipedLeftArm.addChild(leftArm);
-	}
-
-	@Override
-	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		this.bipedBody.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-		this.bipedRightArm.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-		this.bipedLeftArm.render(matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
