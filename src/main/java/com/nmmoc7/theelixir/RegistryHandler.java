@@ -33,6 +33,8 @@ public class RegistryHandler {
     public static final MangoBox MANGO_BOX = new MangoBox();
     public static final MangoFood MANGO_FOOD = new MangoFood();
     public static final CtrlCItem CTRL_C_ITEM = new CtrlCItem();
+    public static final SkirtItem SKIRT_ITEM = new SkirtItem();
+    public static final SkirtChestItem SKIRT_CHEST_ITEM = new SkirtChestItem();
 
     public static final ModItemBase RHINE_METALS = new ModItemBase("rhine_metals", 64);
     public static final ItemTierBase RHINE_TIER = new ItemTierBase(4, 5472, 7, 3, 17, RHINE_METALS);
@@ -71,6 +73,8 @@ public class RegistryHandler {
                 MANGO_BOX,
                 MANGO_FOOD,
                 CTRL_C_ITEM,
+                SKIRT_ITEM,
+                SKIRT_CHEST_ITEM,
                 RHINE_PICKAXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_pickaxe")),
                 RHINE_AXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_axe")),
                 RHINE_HOE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_hoe")),
