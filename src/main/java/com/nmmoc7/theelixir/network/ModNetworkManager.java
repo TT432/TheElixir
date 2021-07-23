@@ -2,6 +2,7 @@ package com.nmmoc7.theelixir.network;
 
 import com.nmmoc7.theelixir.TheElixir;
 import com.nmmoc7.theelixir.network.client.IClientMessage;
+import com.nmmoc7.theelixir.network.client.TeleportClient;
 import com.nmmoc7.theelixir.network.server.FlowerSyncServer;
 import com.nmmoc7.theelixir.network.server.FoxTailSyncServer;
 import com.nmmoc7.theelixir.network.server.IServerMessage;
@@ -57,5 +58,11 @@ public class ModNetworkManager {
                 SkirtSyncServer::encode,
                 SkirtSyncServer::decode,
                 SkirtSyncServer::handle);
+
+        INSTANCE.registerMessage(id++,
+                TeleportClient.class,
+                TeleportClient::encode,
+                TeleportClient::decode,
+                TeleportClient::handle);
     }
 }

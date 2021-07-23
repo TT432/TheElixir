@@ -2,7 +2,6 @@ package com.nmmoc7.theelixir.render;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.player.PlayerEntity;
 
 /**
  * @author DustW
