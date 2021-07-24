@@ -16,6 +16,7 @@ import java.awt.*;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ParticleRegistryHandler {
     public static final RefreshmentParticleData REFRESHMENT_PARTICLE = new RefreshmentParticleData(new Color(0), 0);
+    public static final BloodMouseParticleData BLOOD_MOUSE_PARTICLE = new BloodMouseParticleData(new Color(0), 0);
 
     public static final ParticleType<RefreshmentParticleData> REFRESHMENT = new ParticleType<RefreshmentParticleData>(false, RefreshmentParticleData.DESERIALIZER) {
         @Override
@@ -24,8 +25,16 @@ public class ParticleRegistryHandler {
         }
     };
 
+    public static final ParticleType<BloodMouseParticleData> BLOOD_MOUSE = new ParticleType<BloodMouseParticleData>(false, BloodMouseParticleData.DESERIALIZER) {
+        @Override
+        public Codec<BloodMouseParticleData> func_230522_e_() {
+            return Codec.unit(BLOOD_MOUSE_PARTICLE);
+        }
+    };
+
     @SubscribeEvent
     public static void onParticleRegister(RegistryEvent.Register<ParticleType<?>> event) {
         event.getRegistry().register(REFRESHMENT.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "refreshment")));
+        event.getRegistry().register(BLOOD_MOUSE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "blood_mouse")));
     }
 }

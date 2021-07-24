@@ -10,4 +10,5 @@ public class ModDamageSources {
     public static final DamageSource DIRT_BALL = new DamageSource("dirt_ball");
     public static final DamageSource DIRT_BALL_KING = new DamageSource("dirt_ball_king");
     public static final DamageSource DIRT_BALL_QUEEN = new DamageSource("dirt_ball_queen");
+    public static final DamageSource BITE = new DamageSource("bite").setMagicDamage();
 }

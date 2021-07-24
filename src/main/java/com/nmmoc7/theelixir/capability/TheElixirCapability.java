@@ -96,15 +96,6 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
         }
     }
 
-    public void tick() {
-        if (isUsedElixir()) {
-            owner.clearActivePotions();
-            owner.extinguish();
-
-            owner.getFoodStats().setFoodLevel(1);
-        }
-    }
-
     private boolean chestSkirt = false;
     private boolean normalSkirt = false;
 

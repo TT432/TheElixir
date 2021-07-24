@@ -14,5 +14,6 @@ public class ParticleClientRegistryHandler {
     @SubscribeEvent
     public static void onParticleClientRegister(ParticleFactoryRegisterEvent event) {
         Minecraft.getInstance().particles.registerFactory(ParticleRegistryHandler.REFRESHMENT, RefreshmentParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistryHandler.BLOOD_MOUSE, BloodMouseParticle.Factory::new);
     }
 }

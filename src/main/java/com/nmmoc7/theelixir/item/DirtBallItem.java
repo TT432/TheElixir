@@ -51,8 +51,6 @@ public class DirtBallItem extends ModItemBase {
             if (!playerIn.isCreative()) {
                 playerIn.getHeldItem(handIn).shrink(1);
             }
-
-            playerIn.getCooldownTracker().setCooldown(playerIn.getHeldItem(handIn).getItem(), 20);
         }
         else {
             worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));

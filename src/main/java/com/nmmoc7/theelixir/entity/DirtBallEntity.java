@@ -51,8 +51,11 @@ public class DirtBallEntity extends ProjectileItemEntity {
     protected void onImpact(RayTraceResult result) {
         super.onImpact(result);
         if (!world.isRemote) {
-            world.createExplosion(null, getPosX(), getPosY(), getPosZ(), 1, Explosion.Mode.NONE);
-            ((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, getItem()), getPosX(), getPosY(), getPosZ(), 25, 1, 1, 1, 0);
+            ((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, getItem()),
+                    getPosX(), getPosY(), getPosZ(),
+                    100,
+                    1, 1, 1,
+                    0.4);
         }
         remove();
     }

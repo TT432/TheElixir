@@ -15,36 +15,27 @@ import javax.annotation.Nullable;
  * @author DustW
  */
 public class TheElixirCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
-    TheElixirCapability capability;
-
-    @Override
-    public CompoundNBT serializeNBT() {
-        return getOrCreateCapability().serializeNBT();
-    }
-
-    @Override
-    public void deserializeNBT(CompoundNBT nbt) {
-        getOrCreateCapability().deserializeNBT(nbt);
-    }
+    LazyOptional<TheElixirCapability> capability = LazyOptional.of(TheElixirCapability::new);
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         return cap == CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY ?
-                LazyOptional.of(this::getOrCreateCapability).cast() : LazyOptional.empty();
-    }
-
-    @Nonnull
-    private TheElixirCapability getOrCreateCapability() {
-        if (capability == null) {
-            capability = new TheElixirCapability();
-        }
-
-        return capability;
+                capability.cast() : LazyOptional.empty();
     }
 
     public TheElixirCapabilityProvider init(ServerPlayerEntity owner) {
-        getOrCreateCapability().init(owner);
+        capability.orElse(null).init(owner);
         return this;
+    }
+
+    @Override
+    public CompoundNBT serializeNBT() {
+        return capability.orElse(null).serializeNBT();
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        capability.orElse(null).deserializeNBT(nbt);
     }
 }

@@ -36,6 +36,8 @@ public class RegistryHandler {
     public static final SkirtItem SKIRT_ITEM = new SkirtItem();
     public static final SkirtChestItem SKIRT_CHEST_ITEM = new SkirtChestItem();
     public static final TeleportStone TELEPORT_STONE = new TeleportStone();
+    public static final PhilosopherStone PHILOSOPHER_STONE = new PhilosopherStone();
+    public static final SwallowTheWorld SWALLOW_THE_WORLD = new SwallowTheWorld();
 
     public static final ModItemBase RHINE_METALS = new ModItemBase("rhine_metals", 64);
     public static final ItemTierBase RHINE_TIER = new ItemTierBase(4, 5472, 7, 3, 17, RHINE_METALS);
@@ -77,6 +79,8 @@ public class RegistryHandler {
                 SKIRT_ITEM,
                 SKIRT_CHEST_ITEM,
                 TELEPORT_STONE,
+                PHILOSOPHER_STONE,
+                SWALLOW_THE_WORLD,
                 RHINE_PICKAXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_pickaxe")),
                 RHINE_AXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_axe")),
                 RHINE_HOE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_hoe")),

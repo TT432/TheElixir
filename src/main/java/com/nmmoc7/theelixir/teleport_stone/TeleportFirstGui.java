@@ -121,6 +121,7 @@ public class TeleportFirstGui extends Screen {
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT && this.selectedTab.onDrawTooltip) {
             ModNetworkManager.clientSendToServer(new TeleportClient(this.selectedTab.drawingEntry.getPlayerButton().playerUuid));
+            closeScreen();
         }
 
         return super.mouseReleased(mouseX, mouseY, button);
