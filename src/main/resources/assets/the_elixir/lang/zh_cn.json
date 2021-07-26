@@ -1,5 +1,6 @@
 {
   "itemGroup.the_elixir_item_tab" : "不死灵药",
+
   "item.the_elixir.elixir_item" : "蓬莱之药",
   "item.the_elixir.restrainer" : "约束者",
   "item.the_elixir.flower_item" : "土球勋章",
@@ -23,6 +24,11 @@
   "item.the_elixir.mango_box": "芒果盒子",
   "item.the_elixir.mango_food": "芒果",
   "item.the_elixir.ctrl_c": "Ctrl + C",
+  "item.the_elixir.skirt_item": "裙子",
+  "item.the_elixir.skirt_chest_item": "裙子 （胸部附加）",
+  "item.the_elixir.teleport_stone": "传送之石",
+  "item.the_elixir.philosopher_stone": "贤者之石",
+  "item.the_elixir.swallow_the_world": "吞食天地",
 
   "tooltip.ass_reveal_goggles": "穿戴以揭示“屁股”。",
   "tooltip.bob_boots.1": "攻击目标的“屁股”会造成20点伤害。",

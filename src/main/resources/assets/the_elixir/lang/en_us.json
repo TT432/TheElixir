@@ -1,5 +1,5 @@
 {
-  "itemGroup.the_elixir_item_group_tab" : "The Elixir",
+  "itemGroup.the_elixir_item_tab" : "The Elixir",
 
   "item.the_elixir.elixir_item" : "Elixir",
   "item.the_elixir.restrainer" : "Restrainer",
@@ -24,6 +24,11 @@
   "item.the_elixir.mango_box": "Mango Box",
   "item.the_elixir.mango_food": "Mango",
   "item.the_elixir.ctrl_c": "Ctrl + C",
+  "item.the_elixir.skirt_item": "Skirt",
+  "item.the_elixir.skirt_chest_item": "Skirt (Chest)",
+  "item.the_elixir.teleport_stone": "Teleport Stone",
+  "item.the_elixir.philosopher_stone": "Philosopher Stone",
+  "item.the_elixir.swallow_the_world": "Swallow the World",
 
   "tooltip.ass_reveal_goggles": "Wear to reveal the \"ass\".",
   "tooltip.bob_boots.1": "Attacking the target's buttocks can deal 20 points of damage.",
