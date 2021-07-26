@@ -1,7 +1,6 @@
 package com.nmmoc7.theelixir.item;
 
 import com.nmmoc7.theelixir.damagesource.ModDamageSources;
-import com.nmmoc7.theelixir.particle.BloodMouseParticleData;
 import com.nmmoc7.theelixir.particle.ParticleRegistryHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -9,18 +8,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.world.BlockEvent;
-import org.lwjgl.system.CallbackI;
 
-import java.awt.*;
 import java.util.List;
 
 /**

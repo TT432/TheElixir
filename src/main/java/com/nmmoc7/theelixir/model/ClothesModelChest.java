@@ -59,12 +59,13 @@ public class ClothesModelChest extends BipedModel<PlayerEntity> {
 		bone.setTextureOffset(0, 13).addBox(-4.0F, -18.0503F, 11.2635F, 8.0F, 4.0F, 4.0F, 0.2F, false);
 
 		leftArm = new ModelRenderer(this);
-		leftArm.setRotationPoint(0.0F, 24.0F, 0.0F);
-		leftArm.setTextureOffset(20, 20).addBox(-8.0F, -24.25F, -2.15F, 4.0F, 11.0F, 4.0F, 0.3F, false);
+		leftArm.setRotationPoint(5.0F, 22.0F, 0.0F);
+		leftArm.setTextureOffset(20, 20).addBox(-8.4F, -25.9F, -2.0F, 4.0F, 11.0F, 4.0F, 0.3F, false);
 
 		rightArm = new ModelRenderer(this);
-		rightArm.setRotationPoint(0.0F, 24.0F, 0.0F);
-		rightArm.setTextureOffset(0, 21).addBox(4.0F, -24.25F, -2.15F, 4.0F, 11.0F, 4.0F, 0.3F, false);
+		rightArm.setRotationPoint(-5, 22.0F, 0.0F);
+		rightArm.setTextureOffset(0, 21).addBox(4F, -25.9F, -2.0F, 4.0F, 11.0F, 4.0F, 0.3F, false);
+
 		ModelUtils.addClothes(this, body, leftArm, rightArm);
 	}
 

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nmmoc7.theelixir.TheElixir;
 import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
 import com.nmmoc7.theelixir.capability.TheElixirCapability;
+import com.nmmoc7.theelixir.model.BlueJK;
 import com.nmmoc7.theelixir.model.ClothesModel;
 import com.nmmoc7.theelixir.model.ClothesModelChest;
 import com.nmmoc7.theelixir.model.Skirt;
@@ -27,10 +28,12 @@ public class ClothesLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<
     public static final ResourceLocation CLOTHES = new ResourceLocation(TheElixir.MOD_ID, "textures/entity/clothes.png");
     public static final ResourceLocation CLOTHES_2 = new ResourceLocation(TheElixir.MOD_ID, "textures/entity/clothes2.png");
     public static final ResourceLocation SKIRT = new ResourceLocation(TheElixir.MOD_ID, "textures/entity/skirt.png");
+    public static final ResourceLocation BLUE_TEXTURE = new ResourceLocation(TheElixir.MOD_ID, "textures/entity/jk.png");
 
     public static final ClothesModel CLOTHES_MODEL = new ClothesModel();
     public static final ClothesModelChest CLOTHES_MODEL_CHEST = new ClothesModelChest();
     public static final Skirt SKIRT_MODEL = new Skirt();
+    public static final BlueJK BLUE_JK = new BlueJK();
 
     public ClothesLayerRender(IEntityRenderer<PlayerEntity, PlayerModel<PlayerEntity>> entityRendererIn) {
         super(entityRendererIn);
@@ -45,9 +48,38 @@ public class ClothesLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<
             renderSkirt(matrixStackIn, packedLightIn);
         }
         else if (cap.isNormalSkirt()) {
-            renderNormal(matrixStackIn, packedLightIn);
-            renderSkirt(matrixStackIn, packedLightIn);
+            if ((getEntityModel()).smallArms) {
+                renderJK(matrixStackIn, packedLightIn);
+            }
+            else {
+                renderNormal(matrixStackIn, packedLightIn);
+                renderSkirt(matrixStackIn, packedLightIn);
+            }
         }
+    }
+
+    public void renderJK(MatrixStack matrixStackIn, int packedLightIn) {
+        RenderType renderType = BLUE_JK.getRenderType(CLOTHES);
+        Minecraft mc = Minecraft.getInstance();
+        RenderTypeBuffers renderBuffers = mc.getRenderTypeBuffers();
+        IVertexBuilder vertexBuilder = renderBuffers.getBufferSource().getBuffer(renderType);
+
+        PlayerModel<PlayerEntity> playerModel = getEntityModel();
+        ModelRenderer leftArmModel = playerModel.bipedLeftArm;
+        ModelRenderer rightArmModel = playerModel.bipedRightArm;
+        ModelRenderer bodyModel = playerModel.bipedBody;
+        ModelRenderer leftLegModel = playerModel.bipedLeftLeg;
+        ModelRenderer rightLegModel = playerModel.bipedRightLeg;
+        ModelRenderer headModel = playerModel.bipedHead;
+
+        BLUE_JK.bipedBody.copyModelAngles(bodyModel);
+        BLUE_JK.bipedLeftArm.copyModelAngles(rightArmModel);
+        BLUE_JK.bipedRightArm.copyModelAngles(leftArmModel);
+        BLUE_JK.bipedLeftLeg.copyModelAngles(leftLegModel);
+        BLUE_JK.bipedRightLeg.copyModelAngles(rightLegModel);
+        BLUE_JK.bipedHead.copyModelAngles(headModel);
+
+        BLUE_JK.render(matrixStackIn, vertexBuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 
     public void renderSkirt(MatrixStack matrixStackIn, int packedLightIn) {
@@ -97,9 +129,9 @@ public class ClothesLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<
         ModelRenderer rightArmModel = playerModel.bipedRightArm;
         ModelRenderer bodyModel = playerModel.bipedBody;
 
-        ModelUtils.copyRotate(CLOTHES_MODEL_CHEST.bipedBody, bodyModel);
-        ModelUtils.copyRotate(CLOTHES_MODEL_CHEST.bipedLeftArm, rightArmModel);
-        ModelUtils.copyRotate(CLOTHES_MODEL_CHEST.bipedRightArm, leftArmModel);
+        CLOTHES_MODEL_CHEST.bipedBody.copyModelAngles(bodyModel);
+        CLOTHES_MODEL_CHEST.bipedLeftArm.copyModelAngles(rightArmModel);
+        CLOTHES_MODEL_CHEST.bipedRightArm.copyModelAngles(leftArmModel);
         CLOTHES_MODEL_CHEST.render(matrixStackIn, vertexBuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 }

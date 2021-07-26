@@ -5,11 +5,15 @@ package com.nmmoc7.theelixir.model;// Made with Blockbench 3.9.2
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.nmmoc7.theelixir.render.ModelUtils;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 
-public class alex extends EntityModel<Entity> {
+public class BlueJK extends BipedModel<PlayerEntity> {
 	private final ModelRenderer Head;
 	private final ModelRenderer Body;
 	private final ModelRenderer RightArm;
@@ -17,9 +21,9 @@ public class alex extends EntityModel<Entity> {
 	private final ModelRenderer RightLeg;
 	private final ModelRenderer LeftLeg;
 
-	public alex() {
-		textureWidth = 64;
-		textureHeight = 64;
+	public BlueJK() {
+		super(RenderType::getEntityTranslucent, 0, 0.0F, 64, 64);
+		ModelUtils.clearModel(this);
 
 		Head = new ModelRenderer(this);
 		Head.setRotationPoint(0.0F, 0.0F, 0.0F);
@@ -50,21 +54,23 @@ public class alex extends EntityModel<Entity> {
 		LeftLeg.setRotationPoint(1.9F, 12.0F, 0.0F);
 		LeftLeg.setTextureOffset(16, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
 		LeftLeg.setTextureOffset(0, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.25F, false);
-	}
 
-	@Override
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
-		//previously the render function, render code was moved to a method below
+		bipedBody.addChild(Body);
+		bipedRightLeg.addChild(RightLeg);
+		bipedLeftLeg.addChild(LeftLeg);
+		bipedHead.addChild(Head);
+		bipedRightArm.addChild(RightArm);
+		bipedLeftArm.addChild(LeftArm);
 	}
 
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		Head.render(matrixStack, buffer, packedLight, packedOverlay);
-		Body.render(matrixStack, buffer, packedLight, packedOverlay);
-		RightArm.render(matrixStack, buffer, packedLight, packedOverlay);
-		LeftArm.render(matrixStack, buffer, packedLight, packedOverlay);
-		RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
+		bipedHead.render(matrixStack, buffer, packedLight, packedOverlay);
+		bipedBody.render(matrixStack, buffer, packedLight, packedOverlay);
+		bipedRightArm.render(matrixStack, buffer, packedLight, packedOverlay);
+		bipedLeftArm.render(matrixStack, buffer, packedLight, packedOverlay);
+		bipedRightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
+		bipedLeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
