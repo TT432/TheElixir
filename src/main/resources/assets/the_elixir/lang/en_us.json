@@ -29,6 +29,7 @@
   "item.the_elixir.teleport_stone": "Teleport Stone",
   "item.the_elixir.philosopher_stone": "Philosopher Stone",
   "item.the_elixir.swallow_the_world": "Swallow the World",
+  "item.the_elixir.super_food_stand": "Gecko Food",
 
   "tooltip.ass_reveal_goggles": "Wear to reveal the \"ass\".",
   "tooltip.bob_boots.1": "Attacking the target's buttocks can deal 20 points of damage.",
@@ -48,5 +49,6 @@
   "tooltip.i_am_furry": "Use it to put a fox tail and fox ears on your body.",
   "tooltip.mango_box.1": "Use items that can be deposited in the off hand at the time of the main hand.",
   "tooltip.mango_box.2": "§7§o§l零落耀光 Exclusive Sponsor.",
-  "tooltip.mango_food": "Consumption will get 10s NAUSEA effect."
+  "tooltip.mango_food": "Consumption will get 10s NAUSEA effect.",
+  "tooltip.super_food": "Use this item to convert secondary items into food."
 }

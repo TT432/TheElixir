@@ -29,6 +29,7 @@
   "item.the_elixir.teleport_stone": "传送之石",
   "item.the_elixir.philosopher_stone": "贤者之石",
   "item.the_elixir.swallow_the_world": "吞食天地",
+  "item.the_elixir.super_food_stand": "壁虎食物",
 
   "tooltip.ass_reveal_goggles": "穿戴以揭示“屁股”。",
   "tooltip.bob_boots.1": "攻击目标的“屁股”会造成20点伤害。",
@@ -48,5 +49,6 @@
   "tooltip.i_am_furry": "使用后戴上可爱的狐狸尾巴和狐狸耳朵。",
   "tooltip.mango_box.1": "在主手使用可以放入副手的物品。",
   "tooltip.mango_box.2": "§7§o§l零落耀光独家赞助。",
-  "tooltip.mango_food": "食用会得到10s的反胃。"
+  "tooltip.mango_food": "食用会得到10s的反胃。",
+  "tooltip.super_food": "使用这个物品可以将副手的物品转化为食物。"
 }

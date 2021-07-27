@@ -19,6 +19,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.lwjgl.system.CallbackI;
@@ -60,6 +62,8 @@ public class SuperFood extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         getItemStack(stack).getItem().addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new TranslationTextComponent("tooltip.super_food"));
     }
 
     @Override
