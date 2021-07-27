@@ -1,4 +1,4 @@
-package com.nmmoc7.theelixir.teleport_stone;
+package com.nmmoc7.theelixir.gui.teleport_stone;
 
 import com.nmmoc7.theelixir.TheElixir;
 import net.minecraft.client.Minecraft;

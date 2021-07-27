@@ -1,4 +1,4 @@
-package com.nmmoc7.theelixir.teleport_stone;
+package com.nmmoc7.theelixir.gui.teleport_stone;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -162,7 +162,7 @@ public class TeleportTabGui extends AbstractGui {
             if (before != null) {
                 before.addChild(playerButton);
             }
-            
+
             DisplayInfo displayInfo = new DisplayInfo(
                     new ItemStack(Items.AIR),
                     new StringTextComponent(info.getGameProfile().getName()),

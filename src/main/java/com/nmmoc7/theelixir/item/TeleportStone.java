@@ -1,6 +1,6 @@
 package com.nmmoc7.theelixir.item;
 
-import com.nmmoc7.theelixir.teleport_stone.OpenGui;
+import com.nmmoc7.theelixir.gui.teleport_stone.OpenGui;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;

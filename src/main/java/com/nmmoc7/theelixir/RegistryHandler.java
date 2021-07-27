@@ -38,6 +38,8 @@ public class RegistryHandler {
     public static final TeleportStone TELEPORT_STONE = new TeleportStone();
     public static final PhilosopherStone PHILOSOPHER_STONE = new PhilosopherStone();
     public static final SwallowTheWorld SWALLOW_THE_WORLD = new SwallowTheWorld();
+    public static final SuperFood SUPER_FOOD = new SuperFood();
+    public static final Item SUPER_FOOD_STAND = new Item(new Item.Properties()).setRegistryName("super_food_stand");
 
     public static final ModItemBase RHINE_METALS = new ModItemBase("rhine_metals", 64);
     public static final ItemTierBase RHINE_TIER = new ItemTierBase(4, 5472, 7, 3, 17, RHINE_METALS);
@@ -81,6 +83,8 @@ public class RegistryHandler {
                 TELEPORT_STONE,
                 PHILOSOPHER_STONE,
                 SWALLOW_THE_WORLD,
+                SUPER_FOOD,
+                SUPER_FOOD_STAND,
                 RHINE_PICKAXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_pickaxe")),
                 RHINE_AXE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_axe")),
                 RHINE_HOE.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_hoe")),

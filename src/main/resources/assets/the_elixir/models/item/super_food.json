@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "the_elixir:item/empty",
+    "particle" : "the_elixir:item/empty"
+  }
+}
