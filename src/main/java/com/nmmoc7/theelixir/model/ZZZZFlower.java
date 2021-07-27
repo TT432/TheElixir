@@ -167,10 +167,11 @@ public class ZZZZFlower extends EntityModel<Entity> {
 	public void setLivingAnimations(Entity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
 		TheElixirCapability cap = entityIn.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
 
-		if (cap != null) {
-			head1.rotateAngleZ -= partialTick * Math.toRadians(cap.getFlowerSpeed());
-			head2.rotateAngleZ -= partialTick * Math.toRadians(cap.getFlowerSpeed());
-		}
+		int speed = cap.getFlowerSpeed();
+		double plusAngle = (1 - partialTick) * Math.toRadians(speed);
+
+		head1.rotateAngleZ -= plusAngle;
+		head2.rotateAngleZ -= plusAngle;
 	}
 
 	@Override

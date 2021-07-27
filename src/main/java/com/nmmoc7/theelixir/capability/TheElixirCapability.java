@@ -72,6 +72,7 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
 
     public void setFlowerSpeed(int flowerSpeed) {
         this.flowerSpeed = flowerSpeed;
+        flowerSync();
     }
 
     public void setHasFoxTail(boolean hasFoxTail) {
@@ -87,11 +88,14 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
 
     public void setHasFlower(boolean hasFlower) {
         this.hasFlower = hasFlower;
+        flowerSync();
+    }
 
+    public void flowerSync() {
         String threadGroupName = Thread.currentThread().getThreadGroup().getName();
         if ("SERVER".equals(threadGroupName)) {
             owner.world.getPlayers().forEach(player -> {
-                ModNetworkManager.serverSendToPlayer(new FlowerSyncServer(owner.getUniqueID(), hasFlower), (ServerPlayerEntity) player);
+                ModNetworkManager.serverSendToPlayer(new FlowerSyncServer(owner.getUniqueID(), hasFlower, flowerSpeed), (ServerPlayerEntity) player);
             });
         }
     }

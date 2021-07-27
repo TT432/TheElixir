@@ -20,7 +20,7 @@ public class ChunkUpdateEvent {
                 new ChunkPos(player.chunkCoordX, player.chunkCoordZ).equals(event.getPos())
         ).forEach(player -> {
             TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
-            ModNetworkManager.serverSendToPlayer(new FlowerSyncServer(player.getUniqueID(), cap.isHasFlower()), event.getPlayer());
+            ModNetworkManager.serverSendToPlayer(new FlowerSyncServer(player.getUniqueID(), cap.isHasFlower(), cap.getFlowerSpeed()), event.getPlayer());
         });
     }
 }
