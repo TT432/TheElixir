@@ -38,7 +38,7 @@ public class FoxTailSyncServer implements IServerMessage {
 
                 if (player != null) {
                     player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).ifPresent(theCap ->
-                            theCap.setHasFoxTail(packet.hasFoxTail)
+                            theCap.setHasFox(packet.hasFoxTail)
                     );
                 }
             });

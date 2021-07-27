@@ -18,12 +18,6 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
 
     public int difficultyPoint;
 
-    private boolean hasFlower;
-    private int flowerSpeed = 6;
-
-    private boolean hasFoxTail;
-    boolean beAdd = false;
-
     public void init(ServerPlayerEntity owner) {
         this.owner = owner;
     }
@@ -50,20 +44,39 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
         this.usedElixir = usedElixir;
     }
 
+    /* Fox begin */
+
+    private boolean hasFox;
+
+    public boolean hasFox() {
+        return hasFox;
+    }
+
+    public void setHasFox(boolean hasFox) {
+        this.hasFox = hasFox;
+        foxSync();
+    }
+
+    public void foxSync() {
+        String threadGroupName = Thread.currentThread().getThreadGroup().getName();
+        if ("SERVER".equals(threadGroupName)) {
+            owner.world.getPlayers().forEach(player -> {
+                ModNetworkManager.serverSendToPlayer(new FoxTailSyncServer(owner.getUniqueID(), hasFox), (ServerPlayerEntity) player);
+            });
+        }
+    }
+
+    /* Fox over */
+
+    /* Flower begin */
+
+    private boolean hasFlower;
+    private int flowerSpeed = 6;
+
+    public boolean curioFlower = false;
+
     public boolean isHasFlower() {
         return hasFlower;
-    }
-
-    public boolean isHasFoxTail() {
-        return hasFoxTail;
-    }
-
-    public boolean isBeAdd() {
-        return beAdd;
-    }
-
-    public void setBeAdd(boolean beAdd) {
-        this.beAdd = beAdd;
     }
 
     public int getFlowerSpeed() {
@@ -73,17 +86,6 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     public void setFlowerSpeed(int flowerSpeed) {
         this.flowerSpeed = flowerSpeed;
         flowerSync();
-    }
-
-    public void setHasFoxTail(boolean hasFoxTail) {
-        this.hasFoxTail = hasFoxTail;
-
-        String threadGroupName = Thread.currentThread().getThreadGroup().getName();
-        if ("SERVER".equals(threadGroupName)) {
-            owner.world.getPlayers().forEach(player -> {
-                ModNetworkManager.serverSendToPlayer(new FoxTailSyncServer(owner.getUniqueID(), hasFoxTail), (ServerPlayerEntity) player);
-            });
-        }
     }
 
     public void setHasFlower(boolean hasFlower) {
@@ -99,6 +101,10 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
             });
         }
     }
+
+    /* Flower over */
+
+    /* Skirt begin */
 
     private boolean chestSkirt = false;
     private boolean normalSkirt = false;
@@ -131,4 +137,6 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
             });
         }
     }
+
+    /* Skirt over */
 }

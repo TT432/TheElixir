@@ -26,7 +26,7 @@ public class IAmFurryItem extends ModItemBase {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
             playerIn.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).ifPresent(theCap -> {
-                theCap.setHasFoxTail(!theCap.isHasFoxTail());
+                theCap.setHasFox(!theCap.hasFox());
             });
 
             playerIn.getCooldownTracker().setCooldown(playerIn.getHeldItem(handIn).getItem(), 20);
