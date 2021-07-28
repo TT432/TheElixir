@@ -22,7 +22,7 @@ public class TeleportEntryGui extends AbstractGui {
     private static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/advancements/widgets.png");
     private static final int[] LINE_BREAK_VALUES = new int[]{0, 10, -10, 25, -25};
     private final TeleportTabGui guiAdvancementTab;
-    private final PlayerButton playerButton;
+    public PlayerButton playerButton;
     public final DisplayInfo displayInfo;
     private final IReorderingProcessor title;
     private final int width;

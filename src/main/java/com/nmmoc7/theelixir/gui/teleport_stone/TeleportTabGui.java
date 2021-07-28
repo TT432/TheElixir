@@ -157,10 +157,16 @@ public class TeleportTabGui extends AbstractGui {
         for (NetworkPlayerInfo info : list) {
             PlayerButton playerButton = new PlayerButton(new ResourceLocation("button" + i),
                     info, null, null);
-            PlayerButton before = i > 0 ? guis.values().toArray(new TeleportEntryGui[0])[i - 1].getPlayerButton() : null;
 
-            if (before != null) {
-                before.addChild(playerButton);
+            if (i > 0) {
+                PlayerButton before = guis.values().toArray(new TeleportEntryGui[0])[i - 1].getPlayerButton();
+
+                if (before != null) {
+                    before.addChild(playerButton);
+                }
+            }
+            else if (i == 0) {
+                root.playerButton = playerButton;
             }
 
             DisplayInfo displayInfo = new DisplayInfo(
