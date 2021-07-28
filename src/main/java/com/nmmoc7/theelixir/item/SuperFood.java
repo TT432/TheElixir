@@ -61,17 +61,33 @@ public class SuperFood extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        getItemStack(stack).getItem().addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new TranslationTextComponent("tooltip.super_food"));
+        if (stack.getOrCreateTag().getBoolean("lock")) {
+            for (int i = 0; i < 20; i++) {
+                tooltip.add(new TranslationTextComponent("tooltip.super_food.2"));
+            }
+        }
+        else {
+            getItemStack(stack).getItem().addInformation(stack, worldIn, tooltip, flagIn);
+            tooltip.add(new StringTextComponent(" "));
+            if (getItemStack(stack).getItem() == RegistryHandler.SUPER_FOOD_STAND) {
+                tooltip.add(new TranslationTextComponent("tooltip.super_food"));
+            } else {
+                tooltip.add(new TranslationTextComponent("tooltip.super_food.1"));
+            }
+        }
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
             if (handIn == Hand.MAIN_HAND) {
-                if (!playerIn.getHeldItemOffhand().isEmpty()) {
-                    setItemStack(playerIn.getHeldItemMainhand(), playerIn.getHeldItemOffhand().copy());
+                if (!playerIn.getHeldItemOffhand().isEmpty() && !playerIn.getHeldItemMainhand().getOrCreateTag().getBoolean("lock")) {
+                    if (playerIn.getHeldItemOffhand().getItem() != this) {
+                        setItemStack(playerIn.getHeldItemMainhand(), playerIn.getHeldItemOffhand().copy());
+                    }
+                    else {
+                        playerIn.getHeldItemMainhand().getOrCreateTag().putBoolean("lock", true);
+                    }
                     playerIn.setHeldItem(Hand.OFF_HAND, ItemStack.EMPTY);
                 }
             }

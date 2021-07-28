@@ -50,5 +50,7 @@
   "tooltip.mango_box.1": "在主手使用可以放入副手的物品。",
   "tooltip.mango_box.2": "§7§o§l零落耀光独家赞助。",
   "tooltip.mango_food": "食用会得到10s的反胃。",
-  "tooltip.super_food": "使用这个物品可以将副手的物品转化为食物。"
+  "tooltip.super_food": "使用这个物品可以将副手的物品转化为食物。",
+  "tooltip.super_food.1": "§6可食用",
+  "tooltip.super_food.2": "§4§l你不应该这么做！你不应该这么做！你不应该这么做！你不应该这么做！你不应该这么做！"
 }
