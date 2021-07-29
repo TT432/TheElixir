@@ -19,7 +19,7 @@ import java.util.UUID;
  */
 public class PlayerButton {
     private final ResourceLocation id;
-    private final PlayerButton parent;
+    public PlayerButton parent;
     private final DisplayInfo display;
     public final NetworkPlayerInfo playerInfo;
     private final Set<PlayerButton> children = Sets.newLinkedHashSet();
@@ -60,6 +60,11 @@ public class PlayerButton {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Nullable

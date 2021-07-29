@@ -28,7 +28,7 @@ public class TeleportEntryGui extends AbstractGui {
     private final int width;
     private final List<IReorderingProcessor> description;
     private final Minecraft minecraft;
-    private TeleportEntryGui parent;
+    public TeleportEntryGui parent;
     private final List<TeleportEntryGui> children = Lists.newArrayList();
     private final int x;
     private final int y;
@@ -109,8 +109,8 @@ public class TeleportEntryGui extends AbstractGui {
             }
         }
 
-        for(TeleportEntryGui advancemententrygui : this.children) {
-            advancemententrygui.drawConnectionLineToParent(matrixStack, x, y, dropShadow);
+        for(TeleportEntryGui teleportEntryGui : this.children) {
+            teleportEntryGui.drawConnectionLineToParent(matrixStack, x, y, dropShadow);
         }
 
     }

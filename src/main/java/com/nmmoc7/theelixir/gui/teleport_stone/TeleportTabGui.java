@@ -33,7 +33,7 @@ public class TeleportTabGui extends AbstractGui {
     public final DisplayInfo display;
     public final ItemStack icon;
     public final ITextComponent title;
-    public final TeleportEntryGui root;
+    public TeleportEntryGui root;
     private final Map<PlayerButton, TeleportEntryGui> guis = Maps.newLinkedHashMap();
     public double scrollX;
     public double scrollY;
@@ -151,36 +151,42 @@ public class TeleportTabGui extends AbstractGui {
     public void refresh() {
         guis.clear();
         ClientPlayNetHandler clientplaynethandler = minecraft.player.connection;
-        Collection<NetworkPlayerInfo> list = clientplaynethandler.getPlayerInfoMap();
+        NetworkPlayerInfo[] list = clientplaynethandler.getPlayerInfoMap().toArray(new NetworkPlayerInfo[0]);
 
-        int i = 0;
-        for (NetworkPlayerInfo info : list) {
+        PlayerButton playerButtonRoot = new PlayerButton(new ResourceLocation("button"),
+                list[0], null, getDisplay(list[0]));
+        this.root = new TeleportEntryGui(this, minecraft, playerButtonRoot, getDisplay(list[0]));
+        this.root.parent = null;
+        addPlayerButton(this.root, playerButtonRoot);
+
+        for (int i = 1;  i < list.length; i++) {
+            DisplayInfo tempDisplay = getDisplay(list[i]);
+            tempDisplay.setPosition(i * 2, 0);
+
             PlayerButton playerButton = new PlayerButton(new ResourceLocation("button" + i),
-                    info, null, null);
+                    list[i], null, tempDisplay);
 
-            if (i > 0) {
-                PlayerButton before = guis.values().toArray(new TeleportEntryGui[0])[i - 1].getPlayerButton();
+            addPlayerButton(new TeleportEntryGui(this, minecraft, playerButton, tempDisplay), playerButton);
 
-                if (before != null) {
-                    before.addChild(playerButton);
-                }
+            PlayerButton before = guis.values().toArray(new TeleportEntryGui[0])[i - 1].getPlayerButton();
+
+            if (before != null) {
+                guis.get(before).parent = guis.get(playerButton);
+                guis.get(before).addGuiAdvancement(guis.get(playerButton));
+                guis.get(before).attachToParent();
             }
-            else if (i == 0) {
-                root.playerButton = playerButton;
-            }
-
-            DisplayInfo displayInfo = new DisplayInfo(
-                    new ItemStack(Items.AIR),
-                    new StringTextComponent(info.getGameProfile().getName()),
-                    new StringTextComponent(info.getGameProfile().getName()),
-                    null,
-                    FrameType.TASK,
-                    false, false, false
-            );
-            displayInfo.setPosition(i, 0);
-            addPlayerButton(new TeleportEntryGui(this, minecraft, playerButton, displayInfo), playerButton);
-            i++;
         }
+    }
+
+    public DisplayInfo getDisplay(NetworkPlayerInfo info) {
+        return new DisplayInfo(
+                new ItemStack(Items.AIR),
+                new StringTextComponent(info.getGameProfile().getName()),
+                new StringTextComponent(info.getGameProfile().getName()),
+                null,
+                FrameType.TASK,
+                false, false, false
+        );
     }
 
     private void addPlayerButton(TeleportEntryGui gui, PlayerButton playerButton) {
@@ -193,10 +199,6 @@ public class TeleportTabGui extends AbstractGui {
         this.maxX = Math.max(this.maxX, j);
         this.minY = Math.min(this.minY, k);
         this.maxY = Math.max(this.maxY, l);
-
-        for(TeleportEntryGui teleportEntryGui : this.guis.values()) {
-            teleportEntryGui.attachToParent();
-        }
     }
 
     public void dragSelectedGui(double dragX, double dragY) {
