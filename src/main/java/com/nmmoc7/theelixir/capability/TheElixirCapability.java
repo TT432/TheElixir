@@ -60,9 +60,7 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     public void foxSync() {
         String threadGroupName = Thread.currentThread().getThreadGroup().getName();
         if ("SERVER".equals(threadGroupName)) {
-            owner.world.getPlayers().forEach(player -> {
-                ModNetworkManager.serverSendToPlayer(new FoxTailSyncServer(owner.getUniqueID(), hasFox), (ServerPlayerEntity) player);
-            });
+            owner.world.getPlayers().forEach(player -> ModNetworkManager.serverSendToPlayer(new FoxTailSyncServer(owner.getUniqueID(), hasFox), (ServerPlayerEntity) player));
         }
     }
 
@@ -96,9 +94,7 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     public void flowerSync() {
         String threadGroupName = Thread.currentThread().getThreadGroup().getName();
         if ("SERVER".equals(threadGroupName)) {
-            owner.world.getPlayers().forEach(player -> {
-                ModNetworkManager.serverSendToPlayer(new FlowerSyncServer(owner.getUniqueID(), hasFlower, flowerSpeed), (ServerPlayerEntity) player);
-            });
+            owner.world.getPlayers().forEach(player -> ModNetworkManager.serverSendToPlayer(new FlowerSyncServer(owner.getUniqueID(), hasFlower, flowerSpeed), (ServerPlayerEntity) player));
         }
     }
 
@@ -132,9 +128,7 @@ public class TheElixirCapability implements INBTSerializable<CompoundNBT> {
     public void skirtSync() {
         String threadGroupName = Thread.currentThread().getThreadGroup().getName();
         if ("SERVER".equals(threadGroupName)) {
-            owner.world.getPlayers().forEach(player -> {
-                ModNetworkManager.serverSendToPlayer(new SkirtSyncServer(owner.getUniqueID(), isChestSkirt(), isNormalSkirt()), (ServerPlayerEntity) player);
-            });
+            owner.world.getPlayers().forEach(player -> ModNetworkManager.serverSendToPlayer(new SkirtSyncServer(owner.getUniqueID(), isChestSkirt(), isNormalSkirt()), (ServerPlayerEntity) player));
         }
     }
 

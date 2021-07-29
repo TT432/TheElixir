@@ -21,18 +21,16 @@ public class CapabilityRegistryHandler {
 
     @SubscribeEvent
     public static void onSetupEvent(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            CapabilityManager.INSTANCE.register(
-                    TheElixirCapability.class,
-                    new Capability.IStorage<TheElixirCapability>() {
-                        @Nullable
-                        @Override
-                        public INBT writeNBT(Capability<TheElixirCapability> capability, TheElixirCapability instance, Direction side) { return null; }
-                        @Override
-                        public void readNBT(Capability<TheElixirCapability> capability, TheElixirCapability instance, Direction side, INBT nbt) { }
-                    },
-                    () -> null
-            );
-        });
+        event.enqueueWork(() -> CapabilityManager.INSTANCE.register(
+                TheElixirCapability.class,
+                new Capability.IStorage<TheElixirCapability>() {
+                    @Nullable
+                    @Override
+                    public INBT writeNBT(Capability<TheElixirCapability> capability, TheElixirCapability instance, Direction side) { return null; }
+                    @Override
+                    public void readNBT(Capability<TheElixirCapability> capability, TheElixirCapability instance, Direction side, INBT nbt) { }
+                },
+                () -> null
+        ));
     }
 }

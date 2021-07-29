@@ -19,7 +19,7 @@ import java.util.Random;
  * @author DustW
  */
 public class BakedModel implements IBakedModel {
-    private IBakedModel existingModel;
+    private final IBakedModel existingModel;
 
     public BakedModel(IBakedModel existingModel) {
         this.existingModel = existingModel;
