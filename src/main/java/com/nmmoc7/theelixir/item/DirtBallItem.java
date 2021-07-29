@@ -4,6 +4,7 @@ import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
 import com.nmmoc7.theelixir.capability.TheElixirCapability;
 import com.nmmoc7.theelixir.utils.EntityUtils;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
@@ -39,6 +40,7 @@ public class DirtBallItem extends ModItemBase {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent("tooltip.dirt_ball_item.1"));
+        tooltip.add(new TranslationTextComponent("tooltip.dirt_ball_item.3"));
         tooltip.add(new StringTextComponent(" "));
         tooltip.add(new TranslationTextComponent("tooltip.dirt_ball_item.2"));
     }
@@ -46,10 +48,16 @@ public class DirtBallItem extends ModItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
-            EntityUtils.defaultDirtBallEntityShoot(worldIn, playerIn);
+            if (playerIn.isSneaking()) {
+                playerIn.getHeldItem(handIn).getOrCreateTag().putBoolean("mode",
+                        !playerIn.getHeldItem(handIn).getOrCreateTag().getBoolean("mode"));
+            }
+            else {
+                EntityUtils.defaultDirtBallEntityShoot(worldIn, playerIn);
 
-            if (!playerIn.isCreative()) {
-                playerIn.getHeldItem(handIn).shrink(1);
+                if (!playerIn.isCreative()) {
+                    playerIn.getHeldItem(handIn).shrink(1);
+                }
             }
         }
         else {
@@ -57,5 +65,17 @@ public class DirtBallItem extends ModItemBase {
         }
         playerIn.addStat(Stats.ITEM_USED.get(this));
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (entityIn instanceof PlayerEntity && stack.getOrCreateTag().getBoolean("mode")) {
+            EntityUtils.randomDirtBallEntityShoot(worldIn, (PlayerEntity) entityIn);
+
+            if (!((PlayerEntity) entityIn).isCreative()) {
+                stack.shrink(1);
+            }
+        }
+        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
 }
