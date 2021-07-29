@@ -59,7 +59,7 @@ public class ClothesLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<
     }
 
     public void renderJK(MatrixStack matrixStackIn, int packedLightIn) {
-        RenderType renderType = BLUE_JK.getRenderType(CLOTHES);
+        RenderType renderType = BLUE_JK.getRenderType(BLUE_TEXTURE);
         Minecraft mc = Minecraft.getInstance();
         RenderTypeBuffers renderBuffers = mc.getRenderTypeBuffers();
         IVertexBuilder vertexBuilder = renderBuffers.getBufferSource().getBuffer(renderType);
