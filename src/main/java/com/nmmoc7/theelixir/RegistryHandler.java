@@ -3,6 +3,7 @@ package com.nmmoc7.theelixir;
 import com.nmmoc7.theelixir.entity.DirtBallEntity;
 import com.nmmoc7.theelixir.entity.GrenadeEntity;
 import com.nmmoc7.theelixir.item.*;
+import com.nmmoc7.theelixir.support.botania.BotaniaSupportRegistryHandler;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
@@ -91,6 +92,10 @@ public class RegistryHandler {
                 RHINE_SWORD.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_sword")),
                 RHINE_SHOVEL.setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "rhine_shovel"))
         );
+
+        if (TheElixir.botaniaLoaded) {
+            new BotaniaSupportRegistryHandler().register(event);
+        }
     }
 
     public static final EntityType<GrenadeEntity> GRENADE_ENTITY =

@@ -19,9 +19,11 @@ public class TheElixir {
     public static final int THE_ULTIMATE_ANSWER_TO_THE_UNIVERSE = 42;
 
     public static boolean curiosLoaded;
+    public static boolean botaniaLoaded;
 
     public TheElixir() {
         curiosLoaded = ModList.get().isLoaded("curios");
+        botaniaLoaded = ModList.get().isLoaded("botania");
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onInterModEnqueue);
     }
