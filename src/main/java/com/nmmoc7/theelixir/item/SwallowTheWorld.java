@@ -47,7 +47,7 @@ public class SwallowTheWorld extends ModItemBase {
                             livingEntityIn.getPosZ() - 10
                     ), (entity -> !(entity instanceof PlayerEntity) && entity.isAlive()));
             list.forEach(entity -> {
-                entity.attackEntityFrom(ModDamageSources.BITE, 10);
+                entity.attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.BITE, livingEntityIn), 10);
                 if (!entity.isAlive()) {
                     ((PlayerEntity) livingEntityIn).getFoodStats().setFoodLevel(((PlayerEntity) livingEntityIn).getFoodStats().getFoodLevel() + 1);
                 }

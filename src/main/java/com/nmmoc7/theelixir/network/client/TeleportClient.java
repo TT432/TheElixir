@@ -45,17 +45,13 @@ public class TeleportClient implements IClientMessage {
             ctx.get().enqueueWork(() -> {
                 ServerPlayerEntity player = ctx.get().getSender();
                 PlayerEntity target = player.world.getPlayerByUuid(packet.playerUuid);
-                try {
-                    teleport(player, (ServerWorld) player.world, target.getPosX(), target.getPosY(), target.getPosZ(), new HashSet<>(), player.getYaw(1), player.getPitch(1));
-                } catch (CommandSyntaxException e) {
-                    e.printStackTrace();
-                }
+                teleport(player, (ServerWorld) player.world, target.getPosX(), target.getPosY(), target.getPosZ(), new HashSet<>(), player.getYaw(1), player.getPitch(1));
             });
             ctx.get().setPacketHandled(true);
         }
     }
 
-    private static void teleport(Entity entityIn, ServerWorld worldIn, double x, double y, double z, Set<SPlayerPositionLookPacket.Flags> relativeList, float yaw, float pitch) throws CommandSyntaxException {
+    private static void teleport(Entity entityIn, ServerWorld worldIn, double x, double y, double z, Set<SPlayerPositionLookPacket.Flags> relativeList, float yaw, float pitch) {
         net.minecraftforge.event.entity.living.EntityTeleportEvent.TeleportCommand event = net.minecraftforge.event.ForgeEventFactory.onEntityTeleportCommand(entityIn, x, y, z);
         if (event.isCanceled()) {
             return;

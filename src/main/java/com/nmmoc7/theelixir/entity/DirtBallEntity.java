@@ -89,7 +89,7 @@ public class DirtBallEntity extends ProjectileItemEntity {
                     damage = ((DirtBallItem) getDefaultItem()).getDamageCount(null);
                 }
 
-                result.getEntity().attackEntityFrom(ModDamageSources.DIRT_BALL, damage);
+                result.getEntity().attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.DIRT_BALL, getShooter()), damage);
             }
             else {
                 world.playSound(getPosX(), getPosY(), getPosZ(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.NEUTRAL, 0.7F, 0.9F + world.getRandom().nextFloat(), false);

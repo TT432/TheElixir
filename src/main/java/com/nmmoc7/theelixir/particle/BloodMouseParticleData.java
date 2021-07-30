@@ -20,7 +20,7 @@ public class BloodMouseParticleData implements IParticleData {
     private final float diameter;
     public static final IDeserializer<BloodMouseParticleData> DESERIALIZER = new IDeserializer<BloodMouseParticleData>() {
         @Override
-        public BloodMouseParticleData deserialize(ParticleType<BloodMouseParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException {
+        public BloodMouseParticleData deserialize(ParticleType<BloodMouseParticleData> particleTypeIn, StringReader reader) {
             return ParticleRegistryHandler.BLOOD_MOUSE_PARTICLE;
         }
 

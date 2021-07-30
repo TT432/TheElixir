@@ -20,7 +20,7 @@ public class RefreshmentParticleData implements IParticleData {
     private final float diameter;
     public static final IDeserializer<RefreshmentParticleData> DESERIALIZER = new IDeserializer<RefreshmentParticleData>() {
         @Override
-        public RefreshmentParticleData deserialize(ParticleType<RefreshmentParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException {
+        public RefreshmentParticleData deserialize(ParticleType<RefreshmentParticleData> particleTypeIn, StringReader reader) {
             return ParticleRegistryHandler.REFRESHMENT_PARTICLE;
         }
 
