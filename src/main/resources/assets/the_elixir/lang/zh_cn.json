@@ -54,5 +54,7 @@
   "tooltip.mango_food": "食用会得到10s的反胃。",
   "tooltip.super_food": "使用这个物品可以将副手的物品转化为食物。",
   "tooltip.super_food.1": "§6可食用",
-  "tooltip.super_food.2": "§4§l你不应该这么做！你不应该这么做！你不应该这么做！你不应该这么做！你不应该这么做！"
+  "tooltip.super_food.2": "§4§l你不应该这么做！你不应该这么做！你不应该这么做！",
+  "tooltip.swallow_the_world.1": "长按右键会持续伤害附近实体并补充饱食度",
+  "tooltip.swallow_the_world.2": "§7§o§l他看起来非常美味,对吧?"
 }

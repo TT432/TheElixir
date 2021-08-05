@@ -14,6 +14,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -40,6 +42,10 @@ public class SwallowTheWorld extends ModItemBase {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        String regName = "tooltip.swallow_the_world.";
+        tooltip.add(new TranslationTextComponent(regName + "1"));
+        tooltip.add(new StringTextComponent(" "));
+        tooltip.add(new TranslationTextComponent(regName + "2"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
