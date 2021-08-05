@@ -1,7 +1,9 @@
 package com.nmmoc7.theelixir.item;
 
+import com.nmmoc7.theelixir.config.ServerConfigs;
 import com.nmmoc7.theelixir.damagesource.ModDamageSources;
 import com.nmmoc7.theelixir.particle.ParticleRegistryHandler;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,9 +13,11 @@ import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -35,8 +39,16 @@ public class SwallowTheWorld extends ModItemBase {
     }
 
     @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
     public void onUse(World worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
         if (livingEntityIn instanceof ServerPlayerEntity) {
+            boolean flag1 = ServerConfigs.INSTANCE.SWALLOW_NOT_LIVING.get();
+            boolean flag2 = ServerConfigs.INSTANCE.SWALLOW_PLAYER.get();
+
             List<Entity> list = worldIn.getEntitiesWithinAABB(Entity.class,
                     new AxisAlignedBB(
                             livingEntityIn.getPosX() + 10,
@@ -45,9 +57,17 @@ public class SwallowTheWorld extends ModItemBase {
                             livingEntityIn.getPosX() - 10,
                             livingEntityIn.getPosY() - 10,
                             livingEntityIn.getPosZ() - 10
-                    ), (entity -> !(entity instanceof PlayerEntity) && entity.isAlive()));
+                    ), (entity -> {
+                        boolean flag3 = flag1 || !(entity instanceof LivingEntity);
+                        boolean flag4 = flag2 || !(entity instanceof PlayerEntity);
+                        return !ServerConfigs.INSTANCE.SWALLOW_BLACK_LIST.contains(entity) && flag3 && flag4 && entity.isAlive();
+                    }));
             list.forEach(entity -> {
-                entity.attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.BITE, livingEntityIn), 10);
+                if (!entity.attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.BITE, livingEntityIn), 10)) {
+                    if (!(entity instanceof LivingEntity)) {
+                        entity.remove();
+                    }
+                }
                 if (!entity.isAlive()) {
                     ((PlayerEntity) livingEntityIn).getFoodStats().setFoodLevel(((PlayerEntity) livingEntityIn).getFoodStats().getFoodLevel() + 1);
                 }
