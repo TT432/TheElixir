@@ -8,9 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nmmoc7.theelixir.render.ModelUtils;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class BlueJK extends BipedModel<PlayerEntity> {

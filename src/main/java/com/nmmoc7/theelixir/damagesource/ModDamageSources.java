@@ -1,7 +1,6 @@
 package com.nmmoc7.theelixir.damagesource;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 
 import javax.annotation.Nullable;

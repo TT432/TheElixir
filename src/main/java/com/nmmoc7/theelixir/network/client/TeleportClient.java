@@ -1,6 +1,5 @@
 package com.nmmoc7.theelixir.network.client;
 
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

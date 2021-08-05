@@ -4,7 +4,6 @@ import com.nmmoc7.theelixir.entity.DirtBallEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
 
 import java.util.Random;
 

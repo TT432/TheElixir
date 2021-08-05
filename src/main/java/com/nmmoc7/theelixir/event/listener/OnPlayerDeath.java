@@ -26,7 +26,7 @@ import net.minecraftforge.fml.common.Mod;
  * @author DustW
  */
 @Mod.EventBusSubscriber
-public class PlayerDeathEvent {
+public class OnPlayerDeath {
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event) {
         LivingEntity livingEntity = event.getEntityLiving();

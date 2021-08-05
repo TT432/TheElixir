@@ -4,7 +4,6 @@ import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
 import com.nmmoc7.theelixir.capability.TheElixirCapability;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 /**

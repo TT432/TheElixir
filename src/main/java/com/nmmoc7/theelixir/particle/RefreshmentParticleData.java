@@ -1,7 +1,6 @@
 package com.nmmoc7.theelixir.particle;
 
 import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.nmmoc7.theelixir.TheElixir;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;

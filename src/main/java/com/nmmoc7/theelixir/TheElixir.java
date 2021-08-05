@@ -26,10 +26,12 @@ public class TheElixir {
 
     public static boolean curiosLoaded;
     public static boolean botaniaLoaded;
+    public static boolean uusiLoaded;
 
     public TheElixir() {
         curiosLoaded = ModList.get().isLoaded("curios");
         botaniaLoaded = ModList.get().isLoaded("botania");
+        uusiLoaded = ModList.get().isLoaded("uusi-aurinko");
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ServerConfigs.INSTANCE::onConfigLoadOrReload);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfigs.INSTANCE.getSpec());

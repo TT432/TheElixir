@@ -1,6 +1,5 @@
 package com.nmmoc7.theelixir.support.curios;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;

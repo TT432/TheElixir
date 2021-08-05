@@ -72,6 +72,8 @@ public class DirtBallItem extends ModItemBase {
         if (entityIn instanceof PlayerEntity && stack.getOrCreateTag().getBoolean("mode")) {
             EntityUtils.randomDirtBallEntityShoot(worldIn, (PlayerEntity) entityIn);
 
+            ((PlayerEntity) entityIn).addStat(Stats.ITEM_USED.get(this));
+
             if (!((PlayerEntity) entityIn).isCreative()) {
                 stack.shrink(1);
             }
