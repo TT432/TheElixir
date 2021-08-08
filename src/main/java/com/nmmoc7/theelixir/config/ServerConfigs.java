@@ -27,7 +27,7 @@ public class ServerConfigs extends LoadListeningConfigManagerAbstract {
                 "吞食天地伤害黑名单，在这里面的不会被伤害\n" +
                         "允许使用tag和生物注册名",
                 "swallow_attack_black",
-                Lists.newArrayList("item_frame")
+                Lists.newArrayList("item_frame", "painting")
         ), this);
     }
 
