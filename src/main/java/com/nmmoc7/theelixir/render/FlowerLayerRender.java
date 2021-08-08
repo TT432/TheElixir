@@ -31,7 +31,9 @@ public class FlowerLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<P
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
 
-        if (cap != null && cap.isHasFlower()) {
+        if (cap == null) { return; }
+
+        if (cap.isHasFlower()) {
             RenderType renderType = zzzzFlower.getRenderType(ZZZZ_FLOWER_TEXTURE);
             Minecraft mc = Minecraft.getInstance();
             RenderTypeBuffers renderBuffers = mc.getRenderTypeBuffers();

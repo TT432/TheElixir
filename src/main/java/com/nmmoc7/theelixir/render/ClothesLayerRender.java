@@ -43,6 +43,8 @@ public class ClothesLayerRender extends LayerRenderer<PlayerEntity, PlayerModel<
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         TheElixirCapability cap = player.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
 
+        if (cap == null) { return; }
+
         if (cap.isChestSkirt()) {
             renderChest(matrixStackIn, packedLightIn);
             renderSkirt(matrixStackIn, packedLightIn);
