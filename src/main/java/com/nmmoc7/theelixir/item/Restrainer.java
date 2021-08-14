@@ -1,7 +1,9 @@
 package com.nmmoc7.theelixir.item;
 
 import com.nmmoc7.theelixir.TheElixir;
+import com.nmmoc7.theelixir.damagesource.ModDamageSources;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -53,6 +55,14 @@ public class Restrainer extends SwordItem {
         }, 0, TheElixir.THE_ULTIMATE_ANSWER_TO_THE_UNIVERSE, new Properties().group(ModItemGroup.INSTANCE));
 
         setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "restrainer"));
+    }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (!target.world.isRemote) {
+            target.attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.RESTRAINER, attacker), 20);
+        }
+        return super.hitEntity(stack, target, attacker);
     }
 
     @Override

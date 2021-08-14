@@ -64,9 +64,10 @@ public class SwallowTheWorld extends ModItemBase {
                             livingEntityIn.getPosY() - 10,
                             livingEntityIn.getPosZ() - 10
                     ), (entity -> {
-                        boolean flag3 = flag1 || !(entity instanceof LivingEntity);
-                        boolean flag4 = flag2 || !(entity instanceof PlayerEntity);
-                        return !ServerConfigs.INSTANCE.SWALLOW_BLACK_LIST.contains(entity) && flag3 && flag4 && entity.isAlive();
+                        boolean flag3 = flag1 != (entity instanceof LivingEntity);
+                        boolean flag4 = flag2 == (entity instanceof PlayerEntity);
+                        boolean flag5 = entity != livingEntityIn;
+                        return !ServerConfigs.INSTANCE.SWALLOW_BLACK_LIST.contains(entity) && flag3 && flag4 && entity.isAlive() && flag5;
                     }));
             list.forEach(entity -> {
                 if (!entity.attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.BITE, livingEntityIn), 10)) {
