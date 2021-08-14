@@ -7,6 +7,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreCriteria;
@@ -17,6 +18,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,15 +36,24 @@ public class OnPlayerDeath {
         if (livingEntity instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) livingEntity;
 
-            if (event.getSource().getTrueSource() instanceof ServerPlayerEntity) {
-                ServerPlayerEntity attacker = (ServerPlayerEntity) event.getSource().getTrueSource();
+            TheElixirCapability capability = serverPlayerEntity.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
+
+            if (!livingEntity.world.isRemote && event.getSource().getTrueSource() instanceof LivingEntity) {
+                LivingEntity attacker = (LivingEntity) event.getSource().getTrueSource();
 
                 if (attacker.getHeldItem(Hand.MAIN_HAND).getItem() instanceof Restrainer) {
+                    if (capability.isUsedElixir()) {
+                        capability.setUsedElixir(false);
+
+                        livingEntity.sendMessage(new StringTextComponent("你被变回了人类"), event.getSource().getTrueSource().getUniqueID());
+
+                        if (event.getSource().getTrueSource() instanceof PlayerEntity) {
+                            event.getSource().getTrueSource().sendMessage(new StringTextComponent(String.format("你把 %s 变回了人类", livingEntity.getDisplayName().getString())), livingEntity.getUniqueID());
+                        }
+                    }
                     return;
                 }
             }
-
-            TheElixirCapability capability = serverPlayerEntity.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null);
 
             if (capability.isUsedElixir()) {
                 //死亡信息广播

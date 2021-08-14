@@ -1,9 +1,11 @@
 package com.nmmoc7.theelixir.item;
 
 import com.nmmoc7.theelixir.TheElixir;
+import com.nmmoc7.theelixir.capability.CapabilityRegistryHandler;
 import com.nmmoc7.theelixir.damagesource.ModDamageSources;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -25,7 +27,7 @@ public class Restrainer extends SwordItem {
         super(new IItemTier() {
             @Override
             public int getMaxUses() {
-                return 114514;
+                return 1000000;
             }
 
             @Override
@@ -35,7 +37,7 @@ public class Restrainer extends SwordItem {
 
             @Override
             public float getAttackDamage() {
-                return 1919810;
+                return -1;
             }
 
             @Override
@@ -59,9 +61,10 @@ public class Restrainer extends SwordItem {
 
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (!target.world.isRemote) {
-            target.attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.RESTRAINER, attacker), 20);
+        if (target instanceof ServerPlayerEntity && target.getCapability(CapabilityRegistryHandler.THE_ELIXIR_CAPABILITY).orElse(null).isUsedElixir()) {
+            target.attackEntityFrom(ModDamageSources.withAttacker(ModDamageSources.RESTRAINER, attacker), 20000);
         }
+
         return super.hitEntity(stack, target, attacker);
     }
 

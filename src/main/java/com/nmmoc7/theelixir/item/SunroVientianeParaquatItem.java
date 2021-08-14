@@ -32,7 +32,7 @@ import java.util.Set;
  */
 public class SunroVientianeParaquatItem extends PotionItem {
     public SunroVientianeParaquatItem() {
-        super(new Properties().group(ModItemGroup.INSTANCE));
+        super(new Properties().group(ModItemGroup.INSTANCE).maxStackSize(1));
         setRegistryName(new ResourceLocation(TheElixir.MOD_ID, "sunro_vientiane_paraquat"));
     }
 
@@ -48,6 +48,10 @@ public class SunroVientianeParaquatItem extends PotionItem {
     }
 
     public String getModeName(ItemStack potion) {
+        if (PotionUtils.getEffectsFromStack(potion).size() <= 1) {
+            return "未获取";
+        }
+
         return isAll(potion) ? "全部" : EffectType.values()[getMode(potion)].name();
     }
 
@@ -60,7 +64,7 @@ public class SunroVientianeParaquatItem extends PotionItem {
     }
 
     public void switchMode(ItemStack potion) {
-        setMode(potion, (byte) ((getMode(potion) + 1) % EffectType.values().length + 1));
+        setMode(potion, (byte) ((getMode(potion) + 1) % (EffectType.values().length + 1)));
     }
 
     @Override
@@ -73,11 +77,15 @@ public class SunroVientianeParaquatItem extends PotionItem {
 
             for (Map.Entry<RegistryKey<Effect>, Effect> entry : potions) {
                 if (isAll(context.getItem()) || entry.getValue().getEffectType() == EffectType.values()[getMode(context.getItem())]) {
-                    effects.add(new EffectInstance(entry.getValue(), 100, 100));
+                    effects.add(new EffectInstance(entry.getValue(), 20 * 15, 5));
                 }
             }
 
             PotionUtils.appendEffects(context.getItem(), effects);
+
+            if (!context.getPlayer().isCreative()) {
+                context.getItem().shrink(1);
+            }
         }
 
         return super.onItemUse(context);
