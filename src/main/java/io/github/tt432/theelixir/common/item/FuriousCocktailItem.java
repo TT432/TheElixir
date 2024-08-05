@@ -24,6 +24,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static io.github.tt432.theelixir.common.item.FuriousCocktailItem.Type.BENEFICIAL;
+
 /**
  * @author DustW
  */
@@ -57,12 +59,14 @@ public class FuriousCocktailItem extends PotionItem {
     }
 
     public Type getMode(ItemStack potion) {
-        return getOrCreateData(potion).mode;
+        Data data = getOrCreateData(potion);
+        if (data == null) return BENEFICIAL;
+        return data.mode;
     }
 
     private Data getOrCreateData(ItemStack stack) {
         Data data = stack.get(TheElixirItemDataComponents.FURIOUS_COCKTAIL);
-        if (data == null) data = stack.set(TheElixirItemDataComponents.FURIOUS_COCKTAIL, new Data(Type.BENEFICIAL));
+        if (data == null) data = stack.set(TheElixirItemDataComponents.FURIOUS_COCKTAIL, new Data(BENEFICIAL));
         return data;
     }
 

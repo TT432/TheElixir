@@ -1,0 +1,97 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.model.new": {
+			"initial_state": "walk",
+			"states": {
+				"idle": {
+					"animations": ["待机"],
+					"transitions": [
+						{"walk": "query.ground_speed > 0"},
+						{"run": "query.is_sprinting >0"},
+						{"eat": "query.is_eating > 0"},
+						{"damage": "query.is_damage > 0"},
+						{"fire": "query.is_on_fire > 0"},
+						{"甩尾": "v.shake = !query.is_in_water_or_rain && v.inwater0; v.inwater0=query.is_in_water_or_rain; v.shake"}
+					],
+					"blend_transition": 0.25
+				},
+				"walk": {
+					"animations": ["走路摇晃"],
+					"transitions": [
+						{"idle": "query.ground_speed == 0"},
+						{"run": "query.is_sprinting > 0"},
+						{"damage": "query.is_damage > 0"},
+						{"fire": "query.is_on_fire > 0"}
+					],
+					"blend_transition": 0.4
+				},
+				"run": {
+					"animations": ["冲刺摇晃"],
+					"transitions": [
+						{"walk": "query.ground_speed > 0 && query.is_sprinting < 1"},
+						{"idle": "query.ground_speed == 0 && query.is_sprinting < 1"},
+						{"damage": "query.is_damage > 0"},
+						{"fire": "query.is_on_fire > 0"}
+					],
+					"blend_transition": 0.5,
+					"blend_via_shortest_path": true
+				},
+				"eat": {
+					"animations": ["高频摇晃"],
+					"transitions": [
+						{"idle": "query.is_eating < 1"},
+						{"damage": "query.is_damage > 0"},
+						{"fire": "query.is_on_fire > 0"}
+					],
+					"blend_transition": 0.3
+				},
+				"damage": {
+					"animations": ["惊吓摇晃"],
+					"transitions": [
+						{"idle": "query.is_damage < 1 && query.ground_speed == 0"},
+						{"walk": "query.is_damage < 1 && query.ground_speed > 0"},
+						{"fire": "query.is_on_fire > 0"},
+						{"run": "query.is_damage < 1 && query.is_sprinting > 1"}
+					],
+					"blend_transition": 0.5,
+					"blend_via_shortest_path": true
+				},
+				"fire": {
+					"animations": ["高频大幅摇晃"],
+					"transitions": [
+						{"eat": "query.is_on_fire < 1 && query.is_eating > 0"},
+						{"run": "query.is_on_fire < 1 && query.is_sprinting > 0"},
+						{"walk": "query.is_on_fire < 1 && query.ground_speed > 0 && query.is_sprinting < 1"},
+						{"idle": "query.is_on_fire < 1 && query.ground_speed == 0 && query.is_sprinting < 1"}
+					],
+					"blend_transition": 0.3
+				},
+				"甩尾": {
+					"animations": ["出水甩动"],
+					"transitions": [
+						{"idle": "query.all_animations_finished"}
+					],
+					"blend_transition": 1
+				}
+			}
+		},
+		"jump": {
+			"states": {
+				"default": {
+					"transitions": [
+						{"jump": "query.is_jumping > 0"}
+					],
+					"blend_transition": 0.1
+				},
+				"jump": {
+					"animations": ["跳跃摇晃"],
+					"transitions": [
+						{"default": "query.is_jumping < 1"}
+					],
+					"blend_transition": 0.1
+				}
+			}
+		}
+	}
+}

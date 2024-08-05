@@ -3,12 +3,11 @@ package io.github.tt432.theelixir.client;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 /**
  * @author DustW
@@ -17,14 +16,12 @@ import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AddArmorLayerHandler {
     @SubscribeEvent
-    public static void loadComplete(FMLLoadCompleteEvent evt) {
-        Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap().forEach((entity, skin) -> {
-            if (skin instanceof PlayerRenderer playerRenderer) {
-
-                // todo playerRenderer.addLayer(new FoxRenderLayer(playerRenderer));
+    public static void onEvent(EntityRenderersEvent.AddLayers event) {
+        event.getSkins().forEach(model -> {
+            if (event.getSkin(model) instanceof PlayerRenderer playerRenderer) {
+                playerRenderer.addLayer(new FoxTailRenderLayer(playerRenderer));
                 // todo playerRenderer.addLayer(new FlowerRenderLayer(playerRenderer));
                 // todo playerRenderer.addLayer(new ClothesRenderLayer(playerRenderer));
-
             }
         });
     }
