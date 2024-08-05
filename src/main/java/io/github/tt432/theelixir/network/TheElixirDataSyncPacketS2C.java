@@ -30,6 +30,7 @@ public record TheElixirDataSyncPacketS2C<T extends SyncableData>(
         };
     }
 
+    @SuppressWarnings("unchecked")
     public <R extends AttachmentType<T>> R attachmentType() {
         return switch (data) {
             case ElixirData ignored -> (R) TheElixirAttachmentData.ELIXIR.get();

@@ -1,7 +1,7 @@
 package io.github.tt432.theelixir.common.item;
 
-import io.github.tt432.theelixir.capability.TheElixirAttachmentData;
 import io.github.tt432.theelixir.capability.FoxTailData;
+import io.github.tt432.theelixir.capability.TheElixirAttachmentData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

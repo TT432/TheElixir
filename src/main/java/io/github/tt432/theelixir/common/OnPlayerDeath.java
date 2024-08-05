@@ -1,7 +1,7 @@
 package io.github.tt432.theelixir.common;
 
-import io.github.tt432.theelixir.capability.TheElixirAttachmentData;
 import io.github.tt432.theelixir.capability.ElixirData;
+import io.github.tt432.theelixir.capability.TheElixirAttachmentData;
 import io.github.tt432.theelixir.common.item.TheElixirItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
