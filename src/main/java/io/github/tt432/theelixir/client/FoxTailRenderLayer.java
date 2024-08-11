@@ -38,6 +38,8 @@ public class FoxTailRenderLayer extends RenderLayer<AbstractClientPlayer, Player
         super(pRenderer);
     }
 
+    AnimationComponent animationComponent = new AnimationComponent();
+
     @Override
     public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, AbstractClientPlayer pLivingEntity,
                        float pLimbSwing, float pLimbSwingAmount, float pPartialTick, float pAgeInTicks,
@@ -54,7 +56,6 @@ public class FoxTailRenderLayer extends RenderLayer<AbstractClientPlayer, Player
 
         pose.translate(0, -12 / 16F, 0);
 
-        AnimationComponent animationComponent = RenderData.getComponent(pLivingEntity).getAnimationComponent();
         animationComponent.setup(FOX_TAIL_MODEL, FOX_TAIL_MODEL);
         var infos = BrAnimator.tickAnimation(animationComponent,
                 RenderData.getComponent(pLivingEntity).getScope(), ClientTickHandler.getTick() + pPartialTick);
