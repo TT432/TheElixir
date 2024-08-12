@@ -9,6 +9,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
  */
 public interface SyncableData {
     default void sync(ServerPlayer player) {
-        PacketDistributor.sendToPlayer(player, new TheElixirDataSyncPacketS2C<>(this));
+        PacketDistributor.sendToPlayer(player, new TheElixirDataSyncPacketS2C<>(player.getId(), this));
     }
 }

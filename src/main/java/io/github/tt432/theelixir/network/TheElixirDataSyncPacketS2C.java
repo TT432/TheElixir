@@ -12,15 +12,21 @@ import net.neoforged.neoforge.attachment.AttachmentType;
  * @author TT432
  */
 public record TheElixirDataSyncPacketS2C<T extends SyncableData>(
+        int entityId,
         T data
 ) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<TheElixirDataSyncPacketS2C<?>> TYPE =
             new Type<>(ResourceLocations.mod("the_elixir_data_sync"));
 
-    public static final StreamCodec<ByteBuf, TheElixirDataSyncPacketS2C<?>> STREAM_CODEC =
-            ByteBufCodecs.VAR_INT.dispatch(TheElixirDataSyncPacketS2C::innerId, TheElixirDataSyncPacketS2C::codec);
+    public static final StreamCodec<ByteBuf, TheElixirDataSyncPacketS2C<?>> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT,
+            TheElixirDataSyncPacketS2C::entityId,
+            ByteBufCodecs.VAR_INT.dispatch(TheElixirDataSyncPacketS2C::innerId, TheElixirDataSyncPacketS2C::codec),
+            TheElixirDataSyncPacketS2C::data,
+            TheElixirDataSyncPacketS2C::new
+    );
 
-    private int innerId() {
+    private static <T extends SyncableData> int innerId(T data) {
         return switch (data) {
             case ElixirData ignored -> 0;
             case FlowerData ignored -> 1;
@@ -41,19 +47,14 @@ public record TheElixirDataSyncPacketS2C<T extends SyncableData>(
         };
     }
 
-    @SuppressWarnings("unchecked")
-    private <V> V dataCast() {
-        return (V) data;
-    }
-
-    static StreamCodec<ByteBuf, TheElixirDataSyncPacketS2C<? extends SyncableData>> codec(int idx) {
+    static StreamCodec<ByteBuf, ? extends SyncableData> codec(int idx) {
         return (switch (idx) {
             case 0 -> ElixirData.STREAM_CODEC;
             case 1 -> FlowerData.STREAM_CODEC;
             case 2 -> FoxTailData.STREAM_CODEC;
             case 3 -> SkirtData.STREAM_CODEC;
             default -> throw new IllegalStateException("Unexpected value: " + idx);
-        }).map(TheElixirDataSyncPacketS2C::new, d -> d.dataCast());
+        });
     }
 
     @Override

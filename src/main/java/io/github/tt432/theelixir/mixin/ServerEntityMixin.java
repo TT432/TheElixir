@@ -25,7 +25,7 @@ public class ServerEntityMixin {
     private void theElixir$sendDirtyEntityData(CallbackInfo ci) {
         if (entity.hasData(TheElixirAttachmentData.FOX_TAIL) && entity.getData(TheElixirAttachmentData.FOX_TAIL).isDirty()) {
             PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity,
-                    new TheElixirDataSyncPacketS2C<>(entity.getData(TheElixirAttachmentData.FOX_TAIL)));
+                    new TheElixirDataSyncPacketS2C<>(entity.getId(), entity.getData(TheElixirAttachmentData.FOX_TAIL)));
             entity.getData(TheElixirAttachmentData.FOX_TAIL).setDirty(false);
         }
     }
