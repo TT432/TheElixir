@@ -4,6 +4,7 @@ import io.github.tt432.theelixir.TheElixir;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -18,6 +19,7 @@ public class TheElixirCreativeTabs {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN =
             CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
+                    .title(Component.literal("The Elixir"))
                     .icon(TheElixirItems.ELIXIR_ITEM::toStack)
                     .displayItems((g, o) -> TheElixirItems.ITEMS.getEntries().stream().map(DeferredHolder::get).forEach(o::accept))
                     .build());
