@@ -1,9 +1,13 @@
 package io.github.tt432.theelixir.common.item;
 
 
+import io.github.tt432.eyelib.capability.item.EyelibDataComponents;
+import io.github.tt432.eyelib.capability.item.ItemTooltipReplaceData;
+import io.github.tt432.eyelib.client.gui.tooltip.ReplaceTooltipData;
 import io.github.tt432.theelixir.TheElixir;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -32,7 +36,13 @@ public class TheElixirItems {
             ITEMS.registerItem("refreshment_grenade", RefreshmentGrenade::new);
 
     public static final DeferredItem<FoxTailItem> FOX_TAIL =
-            ITEMS.registerItem("fox_tail", FoxTailItem::new, new Item.Properties().stacksTo(1));
+            ITEMS.register("fox_tail", () -> new FoxTailItem(new Item.Properties()
+                    .component(EyelibDataComponents.ITEM_TOOLTIP_REPLACE_DATA, new ItemTooltipReplaceData(
+                            new ReplaceTooltipData(
+                                    ResourceLocation.fromNamespaceAndPath(TheElixir.MOD_ID, "fox_tooltip"),
+                                    ReplaceTooltipData.Color.EMPTY
+                            )))
+                    .stacksTo(1)));
 
     public static final DeferredItem<HumanGlass> HUMAN_GLASS =
             ITEMS.registerItem("human_glass", HumanGlass::new, new Item.Properties().stacksTo(1));
