@@ -93,7 +93,7 @@ configurations {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    implementation('io.github.tt432:eyelib:21.0.10')
+    implementation('io.github.tt432:eyelib:21.0.11')
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

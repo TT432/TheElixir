@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "the_elixir_TEST_ANIM",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "io/github/tt432/theelixir/common/TheElixirExtensionEnums",
+        "field": "APPLAUD_POSE"
+      }
+    }
+  ]
+}
