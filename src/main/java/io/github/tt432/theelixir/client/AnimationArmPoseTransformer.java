@@ -37,11 +37,11 @@ public class AnimationArmPoseTransformer implements IArmPoseTransformer {
         var infos = BrAnimator.tickAnimation(component, RenderData.getComponent(entity).getScope(),
                 ClientTickHandler.getTick() + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false));
 
-        BoneRenderInfoEntry entry = infos.get("left_arm");
-        if (entry != null) setupArmAnim(model.leftArm, entry);
+        BoneRenderInfoEntry entry = infos.getData("left_arm");
+        setupArmAnim(model.leftArm, entry);
 
-        entry = infos.get("right_arm");
-        if (entry != null) setupArmAnim(model.rightArm, entry);
+        entry = infos.getData("right_arm");
+        setupArmAnim(model.rightArm, entry);
     }
 
     private static void setupArmAnim(ModelPart modelPart, BoneRenderInfoEntry entry) {

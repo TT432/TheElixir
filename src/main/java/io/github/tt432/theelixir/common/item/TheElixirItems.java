@@ -47,11 +47,9 @@ public class TheElixirItems {
     public static final DeferredItem<HumanGlass> HUMAN_GLASS =
             ITEMS.registerItem("human_glass", HumanGlass::new, new Item.Properties().stacksTo(1));
 
-    public static final DeferredItem<DirtBallItem> DIRT_BALL_ITEM =
-            ITEMS.registerItem("dirt_ball", DirtBallItem::new);
+    public static final DeferredItem<DirtBallItem> DIRT_BALL_ITEM = ITEMS.registerItem("dirt_ball", DirtBallItem::new);
 
-    public static final DeferredItem<ApplaudItem> APPLAUD =
-            ITEMS.registerItem("applaud", ApplaudItem::new);
+    public static final DeferredItem<ApplaudItem> APPLAUD = ITEMS.registerItem("applaud", ApplaudItem::new);
 
     // todo public static final DeferredItem<SkirtItem> SKIRT_ITEM = new SkirtItem();
     // todo public static final DeferredItem<SkirtChestItem> SKIRT_CHEST_ITEM = new SkirtChestItem();

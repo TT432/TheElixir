@@ -7,8 +7,8 @@ import io.github.tt432.eyelib.client.ClientTickHandler;
 import io.github.tt432.eyelib.client.animation.BrAnimator;
 import io.github.tt432.eyelib.client.loader.BrModelLoader;
 import io.github.tt432.eyelib.client.render.BrModelTextures;
+import io.github.tt432.eyelib.client.render.ModelRenderer;
 import io.github.tt432.eyelib.client.render.RenderParams;
-import io.github.tt432.eyelib.client.render.renderer.BrModelRenderer;
 import io.github.tt432.eyelib.client.render.visitor.BuiltInBrModelRenderVisitors;
 import io.github.tt432.eyelib.client.render.visitor.ModelRenderVisitorList;
 import io.github.tt432.eyelib.util.math.EyeMath;
@@ -61,7 +61,7 @@ public class FoxTailRenderLayer extends RenderLayer<AbstractClientPlayer, Player
                 RenderData.getComponent(pLivingEntity).getScope(), ClientTickHandler.getTick() + pPartialTick);
 
         RenderType renderType = RenderType.entitySolid(FOX_TAIL_TEXTURE);
-        BrModelRenderer.render(new RenderParams(
+        ModelRenderer.render(new RenderParams(
                         pLivingEntity,
                         pPoseStack.last().copy(),
                         pPoseStack,
