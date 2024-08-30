@@ -28,6 +28,10 @@ public class TheElixirAttachmentData {
             ATTACHMENTS.register("fox_tail",
                     () -> AttachmentType.builder(FoxTailData::new).serialize(FoxTailData.CODEC).build());
 
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<ClientFoxTailData>> CLIENT_FOX_TAIL =
+            ATTACHMENTS.register("client_fox_tail",
+                    () -> AttachmentType.builder(ClientFoxTailData::new).serialize(ClientFoxTailData.CODEC).build());
+
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<SkirtData>> SKIRT =
             ATTACHMENTS.register("skirt",
                     () -> AttachmentType.builder(SkirtData::new).serialize(SkirtData.CODEC).build());

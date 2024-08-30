@@ -12,6 +12,7 @@ import io.github.tt432.eyelib.client.render.RenderParams;
 import io.github.tt432.eyelib.client.render.visitor.BuiltInBrModelRenderVisitors;
 import io.github.tt432.eyelib.client.render.visitor.ModelRenderVisitorList;
 import io.github.tt432.eyelib.util.math.EyeMath;
+import io.github.tt432.theelixir.capability.ClientFoxTailData;
 import io.github.tt432.theelixir.capability.TheElixirAttachmentData;
 import io.github.tt432.theelixir.utils.ResourceLocations;
 import net.minecraft.client.model.PlayerModel;
@@ -38,7 +39,6 @@ public class FoxTailRenderLayer extends RenderLayer<AbstractClientPlayer, Player
         super(pRenderer);
     }
 
-    AnimationComponent animationComponent = new AnimationComponent();
 
     @Override
     public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, AbstractClientPlayer pLivingEntity,
@@ -56,6 +56,8 @@ public class FoxTailRenderLayer extends RenderLayer<AbstractClientPlayer, Player
 
         pose.translate(0, -12 / 16F, 0);
 
+        ClientFoxTailData data = pLivingEntity.getData(TheElixirAttachmentData.CLIENT_FOX_TAIL);
+        AnimationComponent animationComponent = data.getAnimationComponent();
         animationComponent.setup(FOX_TAIL_MODEL, FOX_TAIL_MODEL);
         var infos = BrAnimator.tickAnimation(animationComponent,
                 RenderData.getComponent(pLivingEntity).getScope(), ClientTickHandler.getTick() + pPartialTick);
